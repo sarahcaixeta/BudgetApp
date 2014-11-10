@@ -18,8 +18,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        instrumentTest.setRoot('/src/test/')
+    sourceSets{
+        androidTest.setRoot('src/test')
     }
 }
 
@@ -27,5 +27,3 @@ dependencies {
     androidTestCompile 'org.robolectric:robolectric:2.3'
     androidTestCompile 'junit:junit:4.11'
 }
-
-
