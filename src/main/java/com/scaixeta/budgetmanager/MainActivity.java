@@ -1,4 +1,4 @@
-package com.scaixeta.budgetmanagersrc;
+package com.scaixeta.budgetmanager;
 
 import android.app.Activity;
 import android.os.Bundle;
