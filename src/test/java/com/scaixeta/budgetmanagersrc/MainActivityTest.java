@@ -16,7 +16,7 @@ public class MainActivityTest {
 
     @Test
     public void shouldAsserSarahIsLame(){
-        //Robolectric.buildActivity(MainActivity.class).get().getResources();
+        Robolectric.buildActivity(MainActivity.class).get().getResources();
         assertFalse(false);
     }
 
