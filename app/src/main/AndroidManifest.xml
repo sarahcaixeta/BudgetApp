@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.scaixeta.budgetmanager" >
+    package="com.scaixeta.budgetmanagersrc" >
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <receiver
-            android:name="com.scaixeta.budgetmanager.MyTest"
-            android:enabled="false"
-            android:exported="false" >
-        </receiver>
+
+        <activity
+            android:name="com.scaixeta.budgetmanagersrc.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
     </application>
 
 </manifest>

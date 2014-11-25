@@ -1,4 +1,4 @@
-package com.scaixeta.budgetmanager;
+package com.scaixeta.budgetmanagersrc;
 
 import org.robolectric.annotation.Config;
 import org.junit.Test;
