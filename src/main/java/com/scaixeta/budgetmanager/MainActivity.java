@@ -8,18 +8,23 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import dagger.ObjectGraph;
+
 
 public class MainActivity extends Activity {
 
-    BudgetCalculator budgetCalculator = new BudgetCalculator();
+    @Inject BudgetCalculator budgetCalculator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        inject();
+
         setContentView(R.layout.activity_main);
         final TextView income = (TextView) findViewById(R.id.income);
         Button calculate = (Button) findViewById(R.id.calculate);
         final TextView result = (TextView) findViewById(R.id.result);
+
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,4 +36,10 @@ public class MainActivity extends Activity {
 
     }
 
+    private void inject() {
+        if(budgetCalculator == null) {
+            ObjectGraph objectGraph = ObjectGraph.create(new BudgetCalculator());
+            objectGraph.inject(this);
+        }
+    }
 }

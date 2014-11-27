@@ -1,10 +1,14 @@
 package com.scaixeta.budgetmanager;
 
-import javax.inject.Inject;
+import dagger.Module;
+import dagger.Provides;
 
+@Module(injects = MainActivity.class)
 public class BudgetCalculator {
 
-    public BudgetCalculator() {
+    @Provides
+    BudgetCalculator budgetCalculator() {
+        return new BudgetCalculator();
     }
 
     public double calculateDailyBudget(int income, int days) {
