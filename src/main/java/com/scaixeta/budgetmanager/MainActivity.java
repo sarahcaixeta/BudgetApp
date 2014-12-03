@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        inject();
+        ((BudgetApp)getApplication()).inject(this);
 
         setContentView(R.layout.activity_main);
         final TextView income = (TextView) findViewById(R.id.income);
@@ -36,10 +36,4 @@ public class MainActivity extends Activity {
 
     }
 
-    private void inject() {
-        if(budgetCalculator == null) {
-            ObjectGraph objectGraph = ObjectGraph.create(new BudgetCalculator());
-            objectGraph.inject(this);
-        }
-    }
 }
