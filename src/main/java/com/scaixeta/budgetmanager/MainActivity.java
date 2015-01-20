@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((BudgetApp)getApplication()).inject(this);
+        BudgetApp.getInjectable(this).inject(this);
 
         setContentView(R.layout.activity_main);
         final TextView income = (TextView) findViewById(R.id.income);
@@ -36,4 +36,8 @@ public class MainActivity extends Activity {
 
     }
 
+    /* Used by tests :( */
+    public void setBudgetCalculator(BudgetCalculator budgetCalculator) {
+        this.budgetCalculator = budgetCalculator;
+    }
 }

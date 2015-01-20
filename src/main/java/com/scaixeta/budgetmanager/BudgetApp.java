@@ -1,10 +1,11 @@
 package com.scaixeta.budgetmanager;
 
 import android.app.Application;
+import android.content.Context;
 
 import dagger.ObjectGraph;
 
-public class BudgetApp extends Application {
+public class BudgetApp extends Application{
 
     private ObjectGraph mObjectGraph;
 
@@ -20,5 +21,9 @@ public class BudgetApp extends Application {
 
     public void inject(Object o) {
         mObjectGraph.inject(o);
+    }
+
+    public static BudgetApp getInjectable(Context context) {
+        return (BudgetApp) context.getApplicationContext();
     }
 }
