@@ -25,12 +25,12 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE'
     }
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 18
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 2
         versionName "1.0.0-SNAPSHOT"
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
@@ -52,11 +52,9 @@ dependencies {
     repositories {
         mavenCentral()
     }
-    // Espresso
-    androidTestCompile files('lib/espresso-1.1.jar', 'lib/testrunner-1.1.jar', 'lib/testrunner-runtime-1.1.jar')
     androidTestCompile 'com.google.guava:guava:14.0.1'
-    androidTestCompile 'com.squareup.dagger:dagger:1.2.2'
-    provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    compile 'com.squareup.dagger:dagger:1.2.1'
+    provided 'com.squareup.dagger:dagger-compiler:1.2.1'
     androidTestCompile 'org.hamcrest:hamcrest-integration:1.1'
     androidTestCompile 'org.hamcrest:hamcrest-core:1.1'
     androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
@@ -83,7 +81,7 @@ dependencies {
         exclude module: 'wagon-provider-api'
     }
     androidTestCompile ('com.squareup:fest-android:1.0.+') {
-	exclude group: 'com.android.support', module: 'support-v4'
+	    exclude group: 'com.android.support', module: 'support-v4'
     }   
 }
 
