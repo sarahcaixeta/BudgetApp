@@ -15,10 +15,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @Config(emulateSdk = 18)
-@RunWith(RobolectricTestRunner.class)
+@RunWith(CustomRobolectricTestRunner.class)
 public class MainActivityTest {
 
     private MainActivity activity;
