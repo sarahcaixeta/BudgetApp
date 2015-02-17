@@ -54,6 +54,13 @@ public class MainActivityTest {
         assertThat(result.getText().toString(), equalTo("50.0"));
     }
 
+    @Test
+    public void shouldNotCalculateIfAValueWasntEntered() {
+        BudgetCalculator budgetCalculator = mock(BudgetCalculator.class);
+        activity.findViewById(R.id.calculate).callOnClick();
+        verify(budgetCalculator, never()).calculateDailyBudget(anyInt(), anyInt());
+    }
+
     private BudgetCalculator aBudgetCalculatorWithDailyValueOf(Double value) {
         BudgetCalculator calculator = mock(BudgetCalculator.class);
         when(calculator.calculateDailyBudget(anyInt(), anyInt())).thenReturn(value);

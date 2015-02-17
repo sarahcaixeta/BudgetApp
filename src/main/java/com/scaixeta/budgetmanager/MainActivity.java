@@ -28,9 +28,12 @@ public class MainActivity extends Activity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer incomeInt = Integer.valueOf(income.getText().toString());
-                double value = budgetCalculator.calculateDailyBudget(incomeInt, 30);
-                result.setText(String.valueOf(value));
+                String enteredValue = income.getText().toString();
+                if (enteredValue.length() != 0) {
+                    Integer incomeInt = Integer.valueOf(income.getText().toString());
+                    double value = budgetCalculator.calculateDailyBudget(incomeInt, 30);
+                    result.setText(String.valueOf(value));
+                }
             }
         });
 
