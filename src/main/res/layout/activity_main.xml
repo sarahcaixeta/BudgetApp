@@ -7,19 +7,16 @@
     android:orientation="vertical"
     tools:context="com.scaixeta.budgetmanager.MainActivity">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/income"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/calculate"
-        android:text="@string/calculate"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/result"/>
+
+    <fragment
+        android:id="@+id/home_screen_fragment"
+        android:name="com.scaixeta.budgetmanager.fragments.BudgetSetupFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+    />
 
 </LinearLayout>
