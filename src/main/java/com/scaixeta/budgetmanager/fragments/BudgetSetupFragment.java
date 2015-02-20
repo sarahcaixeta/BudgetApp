@@ -36,25 +36,19 @@ public class BudgetSetupFragment extends Fragment {
 
         final TextView income = (TextView) view.findViewById(R.id.income);
 
-        View to = view.findViewById(R.id.to_date_action_text);
-        to.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                DatePickerFragment newFragment = new DatePickerFragment();
-
-                newFragment.show(fragmentManager, "finalDateDialog");
-            }
-        });
-
         View from = view.findViewById(R.id.from_date_action_text);
         from.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                DatePickerFragment newFragment = new DatePickerFragment();
+                showDatePickerDialog("initialDateDialog");
+            }
+        });
 
-                newFragment.show(fragmentManager, "finalDateDialog");
+        View to = view.findViewById(R.id.to_date_action_text);
+        to.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog("finalDateDialog");
             }
         });
 
@@ -68,6 +62,13 @@ public class BudgetSetupFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void showDatePickerDialog(String tag) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        DatePickerFragment newFragment = new DatePickerFragment();
+
+        newFragment.show(fragmentManager, tag);
     }
 
     private double calculate(TextView income) {
