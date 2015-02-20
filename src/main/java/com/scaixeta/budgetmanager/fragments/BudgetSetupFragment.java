@@ -47,6 +47,17 @@ public class BudgetSetupFragment extends Fragment {
             }
         });
 
+        View from = view.findViewById(R.id.from_date_action_text);
+        from.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                DatePickerFragment newFragment = new DatePickerFragment();
+
+                newFragment.show(fragmentManager, "finalDateDialog");
+            }
+        });
+
         Button calculate = (Button) view.findViewById(R.id.calculate);
 
         calculate.setOnClickListener(new View.OnClickListener() {

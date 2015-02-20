@@ -47,4 +47,13 @@ public class BudgetSetupFragmentTest {
         assertThat(dialog.getDatePicker().getYear(), equalTo(2015));
     }
 
+    @Test
+    public void shouldOpenADatePickerDialogWhenTheTextViewFromIsClicked() {
+        fragment.getView().findViewById(R.id.from_date_action_text).callOnClick();
+
+        DatePickerDialog dialog = (DatePickerDialog) ShadowDatePickerDialog.getLatestDialog();
+        assertNotNull(dialog);
+        assertThat(dialog.getDatePicker().getYear(), equalTo(2015));
+    }
+
 }
