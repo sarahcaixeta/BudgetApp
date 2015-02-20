@@ -1,6 +1,5 @@
 package com.scaixeta.budgetmanager;
 
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
@@ -14,7 +13,6 @@ import org.robolectric.annotation.Config;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;

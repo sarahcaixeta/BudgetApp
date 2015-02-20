@@ -8,10 +8,28 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/budget_value"/>
+
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/income"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/from"
+            android:id="@+id/from_date_action_text"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/to"
+            android:id="@+id/to_date_action_text"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

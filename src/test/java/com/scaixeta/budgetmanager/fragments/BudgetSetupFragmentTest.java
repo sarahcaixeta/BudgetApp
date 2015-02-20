@@ -1,7 +1,6 @@
 package com.scaixeta.budgetmanager.fragments;
 
 import com.scaixeta.budgetmanager.R;
-import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
@@ -28,6 +27,8 @@ public class BudgetSetupFragmentTest {
     @Test
     public void shouldContainIncomeEditText(){
         assertThat(fragment.getView().findViewById(R.id.income), notNullValue());
+        assertThat(fragment.getView().findViewById(R.id.to_date_action_text), notNullValue());
+        assertThat(fragment.getView().findViewById(R.id.from_date_action_text), notNullValue());
         assertThat(fragment.getView().findViewById(R.id.calculate), notNullValue());
     }
 }
