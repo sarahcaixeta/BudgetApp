@@ -3,6 +3,7 @@ package com.scaixeta.budgetmanager.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,18 @@ public class BudgetSetupFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_budget_setup, container, false);
 
         final TextView income = (TextView) view.findViewById(R.id.income);
+
+        View to = view.findViewById(R.id.to_date_action_text);
+        to.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                DatePickerFragment newFragment = new DatePickerFragment();
+
+                newFragment.show(fragmentManager, "finalDateDialog");
+            }
+        });
+
         Button calculate = (Button) view.findViewById(R.id.calculate);
 
         calculate.setOnClickListener(new View.OnClickListener() {
