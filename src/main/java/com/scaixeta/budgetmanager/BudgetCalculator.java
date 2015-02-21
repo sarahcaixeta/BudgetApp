@@ -6,9 +6,7 @@ import dagger.Provides;
 
 public class BudgetCalculator {
 
-    
-
-    public double calculateDailyBudget(int income, int days) {
+    public double calculateDailyBudget(double income, int days) {
         return income / days;
     }
 }

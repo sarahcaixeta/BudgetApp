@@ -1,10 +1,13 @@
 package com.scaixeta.budgetmanager;
 
+import android.app.Fragment;
+import android.view.View;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -29,7 +32,6 @@ public class MainActivityTest {
     @Before
     public void setUp(){
         activity = Robolectric.buildActivity(MainActivity.class).create().get();
-
     }
 
     @Test
@@ -39,31 +41,8 @@ public class MainActivityTest {
     }
 
     @Test
-    public void shouldContainIncomeEditText(){
-        assertThat(activity.findViewById(R.id.result), notNullValue());
-        assertThat(activity.findViewById(R.id.calculate), notNullValue());
+    public void shouldContainHomeScreenFragment(){
+        assertThat(activity.findViewById(R.id.home_screen_fragment), notNullValue());
     }
 
-    @Test
-    public void shouldShowTheDailyBudgetAfterCalculate(){
-        activity.setBudgetCalculator(aBudgetCalculatorWithDailyValueOf(50d));
-        TextView income = (TextView) activity.findViewById(R.id.income);
-        income.setText("0000");
-        activity.findViewById(R.id.calculate).callOnClick();
-        TextView result = (TextView) activity.findViewById(R.id.result);
-        assertThat(result.getText().toString(), equalTo("0.0")); //FIXME change this value back to 50 after refactoring is done
-    }
-
-    @Test
-    public void shouldNotCalculateIfAValueWasntEntered() {
-        BudgetCalculator budgetCalculator = mock(BudgetCalculator.class);
-        activity.findViewById(R.id.calculate).callOnClick();
-        verify(budgetCalculator, never()).calculateDailyBudget(anyInt(), anyInt());
-    }
-
-    private BudgetCalculator aBudgetCalculatorWithDailyValueOf(Double value) {
-        BudgetCalculator calculator = mock(BudgetCalculator.class);
-        when(calculator.calculateDailyBudget(anyInt(), anyInt())).thenReturn(value);
-        return calculator;
-    }
 }

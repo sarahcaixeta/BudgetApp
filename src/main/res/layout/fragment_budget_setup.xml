@@ -33,8 +33,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/calculate"
-            android:text="@string/calculate"/>
+            android:id="@+id/ok"
+            android:text="@string/ok"/>
 
     </LinearLayout>
 

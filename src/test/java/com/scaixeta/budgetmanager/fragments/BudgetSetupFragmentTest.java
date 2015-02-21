@@ -35,7 +35,6 @@ public class BudgetSetupFragmentTest {
         assertThat(fragment.getView().findViewById(R.id.income), notNullValue());
         assertThat(fragment.getView().findViewById(R.id.to_date_action_text), notNullValue());
         assertThat(fragment.getView().findViewById(R.id.from_date_action_text), notNullValue());
-        assertThat(fragment.getView().findViewById(R.id.calculate), notNullValue());
     }
 
     @Test

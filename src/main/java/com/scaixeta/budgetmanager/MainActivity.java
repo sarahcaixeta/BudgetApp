@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 
@@ -25,11 +27,6 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
         setContentView(R.layout.activity_main);
         resultText = (TextView) findViewById(R.id.result);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.home_screen_fragment, BudgetSetupFragment.newInstance(budgetCalculator));
-        fragmentTransaction.commit();
-
     }
 
     /* Used by tests :( */
@@ -38,7 +35,9 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
     }
 
     @Override
-    public void onFragmentInteraction(double result) {
-        resultText.setText(String.valueOf(result));
+    public void onFragmentInteraction(double income, Calendar initialDate, Calendar finalDate) {
+        int days = (int) ((finalDate.getTimeInMillis() - initialDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
+
+        resultText.setText(String.valueOf(budgetCalculator.calculateDailyBudget(income, days)));
     }
 }

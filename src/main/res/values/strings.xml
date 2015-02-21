@@ -8,5 +8,6 @@
     <string name="budget_value">Budget value</string>
     <string name="from">From %1$s</string>
     <string name="to">To %1$s</string>
+    <string name="ok">OK</string>
 
 </resources>
