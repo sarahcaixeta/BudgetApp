@@ -33,8 +33,6 @@ public class BudgetSetupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_budget_setup, container, false);
-        view.setElevation(10);
-        view.setTranslationZ(10);
 
         TextView from = (TextView) view.findViewById(R.id.from_date_action_text);
         from.setText(getDateAsString(initialDate));
