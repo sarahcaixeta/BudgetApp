@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.BudgetCalculator;
 import com.scaixeta.budgetmanager.R;
@@ -20,11 +24,6 @@ public class BudgetSetupFragment extends Fragment {
 
     public BudgetSetupFragment() {
         // Required empty public constructor
-    }
-
-    public static BudgetSetupFragment newInstance() {
-        BudgetSetupFragment fragment = new BudgetSetupFragment();
-        return fragment;
     }
 
     @Override
@@ -48,7 +47,20 @@ public class BudgetSetupFragment extends Fragment {
             }
         });
 
+        Button ok = (Button) view.findViewById(R.id.ok);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                interactionListener.onFragmentInteraction(getEnteredIncome(), Calendar.getInstance(), Calendar.getInstance());
+            }
+        });
+
         return view;
+    }
+
+    private double getEnteredIncome() {
+        TextView income = (TextView) getView().findViewById(R.id.income);
+        return Double.valueOf(income.getText().toString());
     }
 
     private void showDatePickerDialog(String tag) {
@@ -74,6 +86,10 @@ public class BudgetSetupFragment extends Fragment {
             public void onFragmentInteraction(double income, Calendar initialDate, Calendar finalDate) {
             }
         };
+    }
+
+    public void setOnFragmentInteractionListener(OnFragmentInteractionListener listener) {
+        this.interactionListener = listener;
     }
 
     public interface OnFragmentInteractionListener {
