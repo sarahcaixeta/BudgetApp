@@ -1,5 +1,7 @@
 package com.scaixeta.budgetmanager;
 
+import android.view.View;
+
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
@@ -10,6 +12,7 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
@@ -40,6 +43,20 @@ public class MainActivityTest {
     @Test
     public void shouldContainHomeScreenFragment(){
         assertThat(activity.findViewById(R.id.home_screen_fragment), notNullValue());
+    }
+
+    @Test
+    public void theIncomeViewShouldBeInvisibleWhenTheActivityFirstOpens() {
+        assertThat(activity.findViewById(R.id.daily_budget_view).getVisibility(), equalTo(View.GONE));
+    }
+
+    @Test
+    public void theIncomeViewShouldBeVisibleWhenTheBudgetIsSet() {
+        Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
+        when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(0d);
+
+        activity.onFragmentInteraction(budget);
+        assertThat(activity.findViewById(R.id.daily_budget_view).getVisibility(), equalTo(View.VISIBLE));
     }
 
     @Test
