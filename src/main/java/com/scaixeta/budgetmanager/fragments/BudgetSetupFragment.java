@@ -101,11 +101,11 @@ public class BudgetSetupFragment extends Fragment {
         if (activity instanceof OnFragmentInteractionListener) {
             interactionListener = (OnFragmentInteractionListener) activity;
         } else {
-            interactionListener = defaultOnFragmentInterationListener();
+            interactionListener = defaultOnFragmentInteractionListener();
         }
     }
 
-    private OnFragmentInteractionListener defaultOnFragmentInterationListener() {
+    private OnFragmentInteractionListener defaultOnFragmentInteractionListener() {
         return new OnFragmentInteractionListener() {
             @Override
             public void onFragmentInteraction(Budget budget) {
