@@ -1,14 +1,11 @@
 package com.scaixeta.budgetmanager;
 
-import com.scaixeta.budgetmanager.utils.TestDateUtils;
-
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class BudgetCalculatorTest {
 
