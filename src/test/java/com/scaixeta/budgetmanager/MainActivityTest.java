@@ -1,25 +1,20 @@
 package com.scaixeta.budgetmanager;
 
-import android.app.Fragment;
-import android.view.View;
-import android.widget.TextView;
-
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
+import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 
-import static org.hamcrest.Matchers.equalTo;
+import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -28,10 +23,13 @@ import static org.mockito.Mockito.when;
 public class MainActivityTest {
 
     private MainActivity activity;
+    private BudgetCalculator budgetCalculator;
 
     @Before
     public void setUp(){
         activity = Robolectric.buildActivity(MainActivity.class).create().get();
+        budgetCalculator = Mockito.mock(BudgetCalculator.class);
+        activity.setBudgetCalculator(budgetCalculator);
     }
 
     @Test
@@ -43,6 +41,15 @@ public class MainActivityTest {
     @Test
     public void shouldContainHomeScreenFragment(){
         assertThat(activity.findViewById(R.id.home_screen_fragment), notNullValue());
+    }
+
+    @Test
+    public void shouldCalculateTheBudgetWhenTheSetupIsFinished() {
+        Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
+        when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(100d);
+
+        activity.onFragmentInteraction(budget);
+        verify(budgetCalculator).calculateDailyBudget(budget);
     }
 
 }

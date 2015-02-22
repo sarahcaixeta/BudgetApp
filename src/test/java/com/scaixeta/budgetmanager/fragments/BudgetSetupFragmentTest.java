@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.scaixeta.budgetmanager.Budget;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
+import com.scaixeta.budgetmanager.utils.TestDateUtils;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -18,6 +19,7 @@ import org.robolectric.util.FragmentTestUtil;
 
 import java.util.Calendar;
 
+import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
@@ -111,12 +113,6 @@ public class BudgetSetupFragmentTest {
         DatePickerDialog finalDateDialog = (DatePickerDialog) ShadowDatePickerDialog.getLatestDialog();
         finalDateDialog.onDateChanged(finalDateDialog.getDatePicker(), year, month, day);
         finalDateDialog.onClick(finalDateDialog, DatePickerDialog.BUTTON_POSITIVE);
-    }
-
-    private Calendar aCalendarOn(int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar;
     }
 
     private void assertDialogShowsTodaysDate(DatePickerDialog dialog, Calendar calendar) {
