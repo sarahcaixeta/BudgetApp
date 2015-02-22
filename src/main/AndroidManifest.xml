@@ -10,8 +10,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name="com.scaixeta.budgetmanager.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:name="com.scaixeta.budgetmanager.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
