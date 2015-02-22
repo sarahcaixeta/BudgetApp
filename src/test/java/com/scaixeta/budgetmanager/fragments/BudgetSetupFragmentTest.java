@@ -100,12 +100,37 @@ public class BudgetSetupFragmentTest {
 
     }
 
+    @Test
     public void shouldNotFinishIfTheIncomeIsEmpty() {
         EditText income = (EditText) fragment.getView().findViewById(R.id.income);
         income.setText("");
 
         fragment.getView().findViewById(R.id.ok).callOnClick();
         verify(listener, never()).onFragmentInteraction(any(Budget.class));
+    }
+
+    @Test
+    public void shouldNotFinishIfTheFinalDateIsBeforeTheInitialDate() {
+        EditText income = (EditText) fragment.getView().findViewById(R.id.income);
+        income.setText("0");
+
+        setDateOnDialog(R.id.from_date_action_text, 2015, 11, 30);
+        setDateOnDialog(R.id.to_date_action_text, 2015, 10, 15);
+
+        fragment.getView().findViewById(R.id.ok).callOnClick();
+        verify(listener, never()).onFragmentInteraction(any(Budget.class));
+    }
+
+    @Test
+    public void shouldAcceptABudgetOfOneDay() {
+        EditText income = (EditText) fragment.getView().findViewById(R.id.income);
+        income.setText("0");
+
+        setDateOnDialog(R.id.from_date_action_text, 2015, 11, 30);
+        setDateOnDialog(R.id.to_date_action_text, 2015, 11, 30);
+
+        fragment.getView().findViewById(R.id.ok).callOnClick();
+        verify(listener).onFragmentInteraction(any(Budget.class));
     }
 
     private void setDateOnDialog(int actionField, int year, int month, int day) {

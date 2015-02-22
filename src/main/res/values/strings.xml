@@ -9,5 +9,6 @@
     <string name="to">To: </string>
     <string name="ok">OK</string>
     <string name="message_no_income_entered">Please enter an amount for the budget</string>
+    <string name="message_dates_not_valid">The final date must be after the initial date</string>
 
 </resources>

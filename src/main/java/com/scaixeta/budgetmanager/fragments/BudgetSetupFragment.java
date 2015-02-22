@@ -56,15 +56,29 @@ public class BudgetSetupFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
-                } catch (NumberFormatException exception) {
-                    Toast.makeText(getActivity(), R.string.message_no_income_entered, Toast.LENGTH_LONG).show();
-                }
+                sendBudgetToParentActivity();
             }
         });
 
         return view;
+    }
+
+    private void sendBudgetToParentActivity() {
+        if (validateDates(initialDate, finalDate)){
+            try {
+                interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
+            } catch (NumberFormatException exception) {
+                Toast.makeText(getActivity(), R.string.message_no_income_entered, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private boolean validateDates(Calendar initialDate, Calendar finalDate) {
+        boolean valid = initialDate.compareTo(finalDate) <= 0;
+        if (!valid) {
+            Toast.makeText(getActivity(), R.string.message_dates_not_valid, Toast.LENGTH_LONG).show();
+        }
+        return valid;
     }
 
     private double getEnteredIncome() {
