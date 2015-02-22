@@ -90,7 +90,7 @@ public class BudgetSetupFragment extends Fragment {
     }
 
     private String getDateAsString (Calendar date) {
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat fmt = new SimpleDateFormat("EEEE, MMM dd, yyyy");
         fmt.setCalendar(date);
         return fmt.format(date.getTime());
     }

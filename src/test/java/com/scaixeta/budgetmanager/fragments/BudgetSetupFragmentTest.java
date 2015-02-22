@@ -2,11 +2,13 @@ package com.scaixeta.budgetmanager.fragments;
 
 import android.app.DatePickerDialog;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.Budget;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,6 +78,24 @@ public class BudgetSetupFragmentTest {
 
         fragment.getView().findViewById(R.id.ok).callOnClick();
         verify(listener).onFragmentInteraction(eq(new Budget(1000d, aCalendarOn(2015, 9, 30), aCalendarOn(2015, 10, 15))));
+    }
+
+    @Test
+    public void shouldSetTheTextOfTheViewWhenTheInitialDateIsSelected() {
+        setDateOnDialog(R.id.from_date_action_text, 2015, 9, 30);
+
+        TextView view = (TextView) fragment.getView().findViewById(R.id.from_date_action_text);
+        assertThat(view.getText().toString(), Matchers.equalTo("Friday, Oct 30, 2015"));
+
+    }
+
+    @Test
+    public void shouldSetTheTextOfTheViewWhenTheFinalDateIsSelected() {
+        setDateOnDialog(R.id.to_date_action_text, 2015, 10, 15);
+
+        TextView view = (TextView) fragment.getView().findViewById(R.id.to_date_action_text);
+        assertThat(view.getText().toString(), Matchers.equalTo("Sunday, Nov 15, 2015"));
+
     }
 
     public void shouldNotFinishIfTheIncomeIsEmpty() {
