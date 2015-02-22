@@ -6,6 +6,15 @@
         <item name="android:colorPrimary">#4488ee</item>
         <!--   darker variant for the status bar and contextual app bars -->
         <item name="android:colorPrimaryDark">#4477dd</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="BudgetSetup" parent="AppTheme">
+        <item name="android:background">#ececea</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">15dp</item>
+
     </style>
 
     <style name="TestAppTheme" parent="android:Theme.Holo.Light.NoActionBar">

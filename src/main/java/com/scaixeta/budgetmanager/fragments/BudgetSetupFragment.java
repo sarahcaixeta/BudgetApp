@@ -33,6 +33,8 @@ public class BudgetSetupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_budget_setup, container, false);
+        view.setElevation(10);
+        view.setTranslationZ(10);
 
         TextView from = (TextView) view.findViewById(R.id.from_date_action_text);
         from.setText(getDateAsString(initialDate));
@@ -59,7 +61,7 @@ public class BudgetSetupFragment extends Fragment {
                 try {
                     interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
                 } catch (NumberFormatException exception) {
-                    Toast.makeText(getActivity(), "Please enter an amount for the budget", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.message_no_income_entered, Toast.LENGTH_LONG).show();
                 }
             }
         });
