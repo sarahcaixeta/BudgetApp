@@ -35,9 +35,9 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
     }
 
     @Override
-    public void onFragmentInteraction(double income, Calendar initialDate, Calendar finalDate) {
-        int days = (int) ((finalDate.getTimeInMillis() - initialDate.getTimeInMillis()) / 1000 / 60 / 60 / 24);
+    public void onFragmentInteraction(Budget budget) {
+        int days = (int) ((budget.getFinalDate().getTimeInMillis() - budget.getInitialDate().getTimeInMillis()) / 1000 / 60 / 60 / 24);
 
-        resultText.setText(String.valueOf(budgetCalculator.calculateDailyBudget(income, days)));
+        resultText.setText(String.valueOf(budgetCalculator.calculateDailyBudget(budget.getValue(), days)));
     }
 }

@@ -1,18 +1,18 @@
 package com.scaixeta.budgetmanager.fragments;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.scaixeta.budgetmanager.BudgetCalculator;
+import com.scaixeta.budgetmanager.Budget;
 import com.scaixeta.budgetmanager.R;
 
 import java.util.Calendar;
@@ -21,9 +21,11 @@ import java.util.Calendar;
 public class BudgetSetupFragment extends Fragment {
 
     private OnFragmentInteractionListener interactionListener;
+    private Calendar initialDate = Calendar.getInstance();
+    private Calendar finalDate = Calendar.getInstance();
 
-    public BudgetSetupFragment() {
-        // Required empty public constructor
+    public interface OnFragmentInteractionListener {
+        public void onFragmentInteraction(Budget budget);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class BudgetSetupFragment extends Fragment {
         from.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog("initialDateDialog");
+                showDatePickerDialog(getDateSetListener(initialDate));
             }
         });
 
@@ -43,7 +45,7 @@ public class BudgetSetupFragment extends Fragment {
         to.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog("finalDateDialog");
+                showDatePickerDialog(getDateSetListener(finalDate));
             }
         });
 
@@ -51,7 +53,7 @@ public class BudgetSetupFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interactionListener.onFragmentInteraction(getEnteredIncome(), Calendar.getInstance(), Calendar.getInstance());
+                interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
             }
         });
 
@@ -63,11 +65,20 @@ public class BudgetSetupFragment extends Fragment {
         return Double.valueOf(income.getText().toString());
     }
 
-    private void showDatePickerDialog(String tag) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        DatePickerFragment newFragment = new DatePickerFragment();
+    private void showDatePickerDialog(DatePickerDialog.OnDateSetListener dateSetListener) {
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setOnDateSetListener(dateSetListener);
 
-        newFragment.show(fragmentManager, tag);
+        datePickerFragment.show(getActivity().getSupportFragmentManager(), "datePickerDialog");
+    }
+
+    private DatePickerDialog.OnDateSetListener getDateSetListener(final Calendar calendar) {
+        return new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(year, monthOfYear, dayOfMonth);
+            }
+        };
     }
 
     @Override
@@ -83,7 +94,7 @@ public class BudgetSetupFragment extends Fragment {
     private OnFragmentInteractionListener defaultOnFragmentInterationListener() {
         return new OnFragmentInteractionListener() {
             @Override
-            public void onFragmentInteraction(double income, Calendar initialDate, Calendar finalDate) {
+            public void onFragmentInteraction(Budget budget) {
             }
         };
     }
@@ -92,7 +103,4 @@ public class BudgetSetupFragment extends Fragment {
         this.interactionListener = listener;
     }
 
-    public interface OnFragmentInteractionListener {
-        public void onFragmentInteraction(double income, Calendar initialDate, Calendar finalDate);
-    }
 }

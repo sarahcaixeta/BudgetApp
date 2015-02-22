@@ -1,16 +1,15 @@
 package com.scaixeta.budgetmanager.fragments;
 
 import android.app.DatePickerDialog;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.scaixeta.budgetmanager.Budget;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Matchers;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDatePickerDialog;
 import org.robolectric.util.FragmentTestUtil;
@@ -22,7 +21,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -71,8 +70,24 @@ public class BudgetSetupFragmentTest {
         EditText income = (EditText) fragment.getView().findViewById(R.id.income);
         income.setText("1000");
 
+        setDateOnDialog(R.id.from_date_action_text, 2015, 9, 30);
+        setDateOnDialog(R.id.to_date_action_text, 2015, 10, 15);
+
         fragment.getView().findViewById(R.id.ok).callOnClick();
-        verify(listener).onFragmentInteraction(Matchers.eq(1000d), any(Calendar.class), any(Calendar.class));
+        verify(listener).onFragmentInteraction(eq(new Budget(1000d, aCalendarOn(2015, 9, 30), aCalendarOn(2015, 10, 15))));
+    }
+
+    private void setDateOnDialog(int actionField, int year, int month, int day) {
+        fragment.getView().findViewById(actionField).callOnClick();
+        DatePickerDialog finalDateDialog = (DatePickerDialog) ShadowDatePickerDialog.getLatestDialog();
+        finalDateDialog.onDateChanged(finalDateDialog.getDatePicker(), year, month, day);
+        finalDateDialog.onClick(finalDateDialog, DatePickerDialog.BUTTON_POSITIVE);
+    }
+
+    private Calendar aCalendarOn(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+        return calendar;
     }
 
     private void assertDialogShowsTodaysDate(DatePickerDialog dialog, Calendar calendar) {
