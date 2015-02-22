@@ -23,6 +23,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
 @Config(emulateSdk = 18)
@@ -75,6 +76,14 @@ public class BudgetSetupFragmentTest {
 
         fragment.getView().findViewById(R.id.ok).callOnClick();
         verify(listener).onFragmentInteraction(eq(new Budget(1000d, aCalendarOn(2015, 9, 30), aCalendarOn(2015, 10, 15))));
+    }
+
+    public void shouldNotFinishIfTheIncomeIsEmpty() {
+        EditText income = (EditText) fragment.getView().findViewById(R.id.income);
+        income.setText("");
+
+        fragment.getView().findViewById(R.id.ok).callOnClick();
+        verify(listener, never()).onFragmentInteraction(any(Budget.class));
     }
 
     private void setDateOnDialog(int actionField, int year, int month, int day) {

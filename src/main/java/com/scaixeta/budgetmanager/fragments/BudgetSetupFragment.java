@@ -4,17 +4,18 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scaixeta.budgetmanager.Budget;
 import com.scaixeta.budgetmanager.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -33,19 +34,21 @@ public class BudgetSetupFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_budget_setup, container, false);
 
-        View from = view.findViewById(R.id.from_date_action_text);
+        TextView from = (TextView) view.findViewById(R.id.from_date_action_text);
+        from.setText(getDateAsString(initialDate));
         from.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(getDateSetListener(initialDate));
+                showDatePickerDialog(getDateSetListener((TextView) v, initialDate));
             }
         });
 
-        View to = view.findViewById(R.id.to_date_action_text);
+        TextView to = (TextView) view.findViewById(R.id.to_date_action_text);
+        to.setText(getDateAsString(finalDate));
         to.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(getDateSetListener(finalDate));
+                showDatePickerDialog(getDateSetListener((TextView) v, finalDate));
             }
         });
 
@@ -53,7 +56,11 @@ public class BudgetSetupFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
+                try {
+                    interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
+                } catch (NumberFormatException exception) {
+                    Toast.makeText(getActivity(), "Please enter an amount for the budget", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -72,13 +79,20 @@ public class BudgetSetupFragment extends Fragment {
         datePickerFragment.show(getActivity().getSupportFragmentManager(), "datePickerDialog");
     }
 
-    private DatePickerDialog.OnDateSetListener getDateSetListener(final Calendar calendar) {
+    private DatePickerDialog.OnDateSetListener getDateSetListener(final TextView actionView, final Calendar calendar) {
         return new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(year, monthOfYear, dayOfMonth);
+                actionView.setText(getDateAsString(calendar));
             }
         };
+    }
+
+    private String getDateAsString (Calendar date) {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MMM-yyyy");
+        fmt.setCalendar(date);
+        return fmt.format(date.getTime());
     }
 
     @Override
