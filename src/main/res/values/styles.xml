@@ -9,7 +9,7 @@
         <item name="android:textSize">20dp</item>
     </style>
 
-    <style name="BudgetSetup" parent="AppTheme">
+    <style name="BudgetSetup">
         <item name="android:background">#ececea</item>
         <item name="android:elevation">10dp</item>
         <item name="android:padding">5dp</item>
