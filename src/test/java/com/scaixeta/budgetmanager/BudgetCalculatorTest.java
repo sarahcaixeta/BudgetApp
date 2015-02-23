@@ -1,5 +1,7 @@
 package com.scaixeta.budgetmanager;
 
+import com.scaixeta.budgetmanager.data.Budget;
+
 import org.junit.Before;
 import org.junit.Test;
 

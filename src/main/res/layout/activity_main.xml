@@ -25,7 +25,14 @@
         android:id="@+id/home_screen_fragment"
         android:name="com.scaixeta.budgetmanager.fragments.BudgetSetupFragment"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
     />
+
+    <fragment
+        android:id="@+id/list_fragment"
+        android:name="com.scaixeta.budgetmanager.fragments.ExpenseListFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
 
 </LinearLayout>

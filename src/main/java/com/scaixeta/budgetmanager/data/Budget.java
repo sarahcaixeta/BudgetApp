@@ -1,4 +1,4 @@
-package com.scaixeta.budgetmanager;
+package com.scaixeta.budgetmanager.data;
 
 import java.util.Calendar;
 

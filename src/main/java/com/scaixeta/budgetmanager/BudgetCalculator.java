@@ -1,7 +1,6 @@
 package com.scaixeta.budgetmanager;
 
-import dagger.Module;
-import dagger.Provides;
+import com.scaixeta.budgetmanager.data.Budget;
 
 
 public class BudgetCalculator {

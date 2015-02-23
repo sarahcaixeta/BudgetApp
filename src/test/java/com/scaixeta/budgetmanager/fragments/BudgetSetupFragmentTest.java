@@ -4,10 +4,9 @@ import android.app.DatePickerDialog;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.scaixeta.budgetmanager.Budget;
+import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
-import com.scaixeta.budgetmanager.utils.TestDateUtils;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;

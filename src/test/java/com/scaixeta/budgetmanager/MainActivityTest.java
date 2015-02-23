@@ -2,6 +2,7 @@ package com.scaixeta.budgetmanager;
 
 import android.view.View;
 
+import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;

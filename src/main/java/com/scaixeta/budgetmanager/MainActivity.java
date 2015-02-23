@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
+import com.scaixeta.budgetmanager.data.Budget;
 
 import javax.inject.Inject;
 

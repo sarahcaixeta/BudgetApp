@@ -12,7 +12,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.scaixeta.budgetmanager.Budget;
+import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.R;
 
 import java.text.SimpleDateFormat;
