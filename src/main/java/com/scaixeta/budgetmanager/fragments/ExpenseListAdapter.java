@@ -1,41 +1,35 @@
 package com.scaixeta.budgetmanager.fragments;
 
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Expense;
 
 import java.util.List;
 
-public class ExpenseListAdapter extends RecyclerView.Adapter {
+public class ExpenseListAdapter extends ArrayAdapter<Expense> {
 
-    private List<Expense> expenses;
-
-    public ExpenseListAdapter(List<Expense> expenses){
-        this.expenses = expenses;
+    public ExpenseListAdapter(Context context, int resource, List<Expense> expenses) {
+        super(context, resource, expenses);
     }
 
     @Override
-    public ExpenseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.fragment_expense_list_item, viewGroup, false);
+        View v = LayoutInflater.from(getContext())
+                .inflate(R.layout.fragment_expense_list_item, parent, false);
 
-        return new ExpenseViewHolder(v);
+        TextView name = (TextView) v.findViewById(R.id.expense_name);
+        name.setText(getItem(position).getName());
+        TextView price = (TextView) v.findViewById(R.id.expense_price);
+        price.setText(String.valueOf(getItem(position).getPrice()));
+
+        return v;
     }
 
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ExpenseViewHolder expenseViewHolder = (ExpenseViewHolder) viewHolder;
-        expenseViewHolder.getTextView(R.id.expense_name).setText(expenses.get(position).getName());
-        expenseViewHolder.getTextView(R.id.expense_price).setText(String.valueOf(expenses.get(position).getPrice()));
-    }
-
-    @Override
-    public int getItemCount() {
-        return expenses.size();
-    }
 }
