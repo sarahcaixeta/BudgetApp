@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -11,7 +11,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        mavenLocal()
+        mavenCentral()
     }
 }
 
@@ -42,15 +43,7 @@ android {
     }
 }
 
-robolectric {
-    include '**/*Test.class'
-    exclude '**/espresso/**/*.class'
-}
-
 dependencies {
-    repositories {
-        jcenter()
-    }
     compile 'com.android.support:recyclerview-v7:21.0.0'
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
