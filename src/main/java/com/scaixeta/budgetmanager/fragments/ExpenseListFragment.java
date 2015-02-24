@@ -17,13 +17,6 @@ import java.util.List;
 
 public class ExpenseListFragment extends Fragment {
 
-    public static ExpenseListFragment newInstance() {
-        return new ExpenseListFragment();
-    }
-
-    public ExpenseListFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
