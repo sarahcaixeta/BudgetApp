@@ -45,7 +45,7 @@ public class BudgetSetupFragmentTest {
     }
 
     @Test
-    public void shouldContainIncomeEditText(){
+    public void shouldContainSetupViews(){
         assertThat(fragment.getView().findViewById(R.id.income), notNullValue());
         assertThat(fragment.getView().findViewById(R.id.to_date_action_text), notNullValue());
         assertThat(fragment.getView().findViewById(R.id.from_date_action_text), notNullValue());

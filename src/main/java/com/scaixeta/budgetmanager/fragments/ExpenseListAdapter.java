@@ -10,19 +10,19 @@ import android.widget.TextView;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Expense;
 
-import java.util.List;
-
 public class ExpenseListAdapter extends ArrayAdapter<Expense> {
 
-    public ExpenseListAdapter(Context context, int resource, List<Expense> expenses) {
-        super(context, resource, expenses);
+    private static int RESOURCE = R.layout.fragment_expense_list_item;
+
+    public ExpenseListAdapter(Context context) {
+        super(context, RESOURCE);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v = LayoutInflater.from(getContext())
-                .inflate(R.layout.fragment_expense_list_item, parent, false);
+                .inflate(RESOURCE, parent, false);
 
         TextView name = (TextView) v.findViewById(R.id.expense_name);
         name.setText(getItem(position).getName());
