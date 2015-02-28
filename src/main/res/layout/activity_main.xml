@@ -22,7 +22,7 @@
 
 
     <fragment
-        android:id="@+id/home_screen_fragment"
+        android:id="@+id/budget_setup_fragment"
         android:name="com.scaixeta.budgetmanager.fragments.BudgetSetupFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

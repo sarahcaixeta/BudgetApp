@@ -41,7 +41,7 @@ public class MainActivityTest {
 
     @Test
     public void shouldContainHomeScreenFragment(){
-        assertThat(activity.findViewById(R.id.home_screen_fragment), notNullValue());
+        assertThat(activity.findViewById(R.id.budget_setup_fragment), notNullValue());
     }
 
     @Test
@@ -56,6 +56,7 @@ public class MainActivityTest {
 
         activity.onFragmentInteraction(budget);
         assertThat(activity.findViewById(R.id.daily_budget_view).getVisibility(), equalTo(View.VISIBLE));
+        assertThat(activity.findViewById(R.id.budget_setup_fragment).getVisibility(), equalTo(View.GONE));
     }
 
     @Test

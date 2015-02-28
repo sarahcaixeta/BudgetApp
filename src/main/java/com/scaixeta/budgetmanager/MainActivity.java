@@ -26,6 +26,7 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
     private TextView resultText;
     private ExpenseListFragment listFragment;
+    private BudgetSetupFragment budgetSetupFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
         FragmentManager manager = getSupportFragmentManager();
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
+        budgetSetupFragment = (BudgetSetupFragment) manager.findFragmentById(R.id.budget_setup_fragment);
 
     }
 
@@ -50,6 +52,7 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
         double dailyBudget = budgetCalculator.calculateDailyBudget(budget);
         resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
         findViewById(R.id.daily_budget_view).setVisibility(View.VISIBLE);
+        budgetSetupFragment.getView().setVisibility(View.GONE);
     }
 
     @Override
