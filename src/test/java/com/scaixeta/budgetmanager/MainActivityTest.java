@@ -1,5 +1,7 @@
 package com.scaixeta.budgetmanager;
 
+import android.app.Dialog;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.scaixeta.budgetmanager.data.Budget;
@@ -11,11 +13,14 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
+import org.robolectric.shadows.ShadowDialog;
+import org.robolectric.tester.android.view.TestMenuItem;
 
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
@@ -30,7 +35,7 @@ public class MainActivityTest {
 
     @Before
     public void setUp(){
-        activity = Robolectric.buildActivity(MainActivity.class).create().get();
+        activity = Robolectric.buildActivity(MainActivity.class).create().start().get();
         budgetCalculator = Mockito.mock(BudgetCalculator.class);
         activity.setBudgetCalculator(budgetCalculator);
     }
@@ -69,4 +74,12 @@ public class MainActivityTest {
         verify(budgetCalculator).calculateDailyBudget(budget);
     }
 
+    @Test
+    public void shouldOpenADialogWhenTheNewExpenseMenuIsSelected() {
+        MenuItem item = new TestMenuItem(R.id.action_new_expense);
+        activity.onOptionsItemSelected(item);
+
+        Dialog dialog = ShadowDialog.getLatestDialog();
+        assertNotNull(dialog);
+    }
 }

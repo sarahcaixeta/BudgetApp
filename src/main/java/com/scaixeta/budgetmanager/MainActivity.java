@@ -2,15 +2,16 @@ package com.scaixeta.budgetmanager;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
+import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
 
 import javax.inject.Inject;
 
@@ -53,9 +54,22 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_new_expense){
-            Toast.makeText(this, "An expense should be created", Toast.LENGTH_LONG).show();
+            NewExpenseDialogFragment dialog = new NewExpenseDialogFragment();
+            dialog.setNewExpenseListener(new OnExpenseCreatedListener());
+            FragmentManager supportFragmentManager = getSupportFragmentManager();
+            dialog.show(supportFragmentManager, "newExpenseDialog");
+
+//            supportFragmentManager.beginTransaction().commit();
+//            supportFragmentManager.executePendingTransactions();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class OnExpenseCreatedListener implements NewExpenseDialogFragment.NewExpenseListener {
+
+        @Override
+        public void onNewExpenseCreated(String name, double price) {
+        }
     }
 }
