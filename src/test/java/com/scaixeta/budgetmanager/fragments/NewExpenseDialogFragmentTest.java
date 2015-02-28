@@ -6,7 +6,6 @@ import android.widget.EditText;
 
 import com.scaixeta.budgetmanager.MainActivity;
 import com.scaixeta.budgetmanager.R;
-import com.scaixeta.budgetmanager.data.Expense;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
@@ -18,7 +17,8 @@ import org.robolectric.shadows.ShadowDialog;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.robolectric.Robolectric.buildActivity;
@@ -58,7 +58,7 @@ public class NewExpenseDialogFragmentTest {
     public void shouldNotCreateAnExpenseWhenNameAndPriceAreEmpty() {
         dialog.findViewById(R.id.ok).callOnClick();
 
-        verify(listener, never()).onNewExpenseCreated(any(Expense.class));
+        verify(listener, never()).onNewExpenseCreated(anyString(), anyDouble());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class NewExpenseDialogFragmentTest {
         name.setText("name");
         dialog.findViewById(R.id.ok).callOnClick();
 
-        verify(listener, never()).onNewExpenseCreated(any(Expense.class));
+        verify(listener, never()).onNewExpenseCreated(anyString(), anyDouble());
     }
 
     @Test
@@ -76,6 +76,17 @@ public class NewExpenseDialogFragmentTest {
         price.setText("10");
         dialog.findViewById(R.id.ok).callOnClick();
 
-        verify(listener, never()).onNewExpenseCreated(any(Expense.class));
+        verify(listener, never()).onNewExpenseCreated(anyString(), anyDouble());
+    }
+
+    @Test
+    public void shouldCreateAnExpenseWithNameAndPrice() {
+        EditText name = (EditText) dialog.findViewById(R.id.expense_name);
+        name.setText("name");
+        EditText price = (EditText) dialog.findViewById(R.id.expense_price);
+        price.setText("10");
+        dialog.findViewById(R.id.ok).callOnClick();
+
+        verify(listener).onNewExpenseCreated("name", 10d);
     }
 }

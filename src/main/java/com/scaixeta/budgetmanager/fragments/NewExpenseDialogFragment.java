@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.scaixeta.budgetmanager.R;
-import com.scaixeta.budgetmanager.data.Expense;
 
 public class NewExpenseDialogFragment extends DialogFragment {
 
@@ -40,7 +39,7 @@ public class NewExpenseDialogFragment extends DialogFragment {
         String name = getValueFromInput(R.id.expense_name);
         String price = getValueFromInput(R.id.expense_price);
         if (!name.equals("") && !price.equals("")){
-            newExpenseListener.onNewExpenseCreated(null);
+            newExpenseListener.onNewExpenseCreated(name, Double.valueOf(price));
         }
     }
 
@@ -50,13 +49,13 @@ public class NewExpenseDialogFragment extends DialogFragment {
     }
 
     public interface NewExpenseListener {
-        public void onNewExpenseCreated(Expense expense);
+        public void onNewExpenseCreated(String name, double price);
     }
 
     private class DefaultNewExpenseListener implements NewExpenseListener {
 
         @Override
-        public void onNewExpenseCreated(Expense expense) {
+        public void onNewExpenseCreated(String name, double price) {
 
         }
     }
