@@ -29,18 +29,15 @@ public class NewExpenseDialogFragment extends DialogFragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createExpense();
+                String name = getValueFromInput(R.id.expense_name);
+                String price = getValueFromInput(R.id.expense_price);
+                if (!name.equals("") && !price.equals("")){
+                    newExpenseListener.onNewExpenseCreated(name, Double.valueOf(price));
+                    dismiss();
+                }
             }
         });
         return view;
-    }
-
-    private void createExpense() {
-        String name = getValueFromInput(R.id.expense_name);
-        String price = getValueFromInput(R.id.expense_price);
-        if (!name.equals("") && !price.equals("")){
-            newExpenseListener.onNewExpenseCreated(name, Double.valueOf(price));
-        }
     }
 
     private String getValueFromInput(int id) {
