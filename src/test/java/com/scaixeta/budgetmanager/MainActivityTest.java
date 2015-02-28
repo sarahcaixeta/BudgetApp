@@ -41,12 +41,6 @@ public class MainActivityTest {
     }
 
     @Test
-    public void shouldAssertSarahIsLame(){
-        Robolectric.buildActivity(MainActivity.class).get().getResources();
-        assertFalse(false);
-    }
-
-    @Test
     public void shouldContainHomeScreenFragment(){
         assertThat(activity.findViewById(R.id.home_screen_fragment), notNullValue());
     }
