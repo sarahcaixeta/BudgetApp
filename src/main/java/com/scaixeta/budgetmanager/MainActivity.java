@@ -59,8 +59,6 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             dialog.show(supportFragmentManager, "newExpenseDialog");
 
-//            supportFragmentManager.beginTransaction().commit();
-//            supportFragmentManager.executePendingTransactions();
             return true;
         }
         return super.onOptionsItemSelected(item);
