@@ -12,11 +12,12 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.R;
+import com.scaixeta.budgetmanager.data.Budget;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import static com.scaixeta.budgetmanager.utils.DateUtils.parseCalendarToString;
 
 
 public class BudgetSetupFragment extends Fragment {
@@ -35,7 +36,7 @@ public class BudgetSetupFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_budget_setup, container, false);
 
         TextView from = (TextView) view.findViewById(R.id.from_date_action_text);
-        from.setText(getDateAsString(initialDate));
+        from.setText(parseCalendarToString(initialDate));
         from.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +45,7 @@ public class BudgetSetupFragment extends Fragment {
         });
 
         TextView to = (TextView) view.findViewById(R.id.to_date_action_text);
-        to.setText(getDateAsString(finalDate));
+        to.setText(parseCalendarToString(finalDate));
         to.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,15 +99,9 @@ public class BudgetSetupFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 calendar.set(year, monthOfYear, dayOfMonth);
-                actionView.setText(getDateAsString(calendar));
+                actionView.setText(parseCalendarToString(calendar));
             }
         };
-    }
-
-    private String getDateAsString (Calendar date) {
-        SimpleDateFormat fmt = new SimpleDateFormat("EEEE, MMM dd, yyyy");
-        fmt.setCalendar(date);
-        return fmt.format(date.getTime());
     }
 
     @Override

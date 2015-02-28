@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Expense;
+import com.scaixeta.budgetmanager.utils.DateUtils;
 
 public class ExpenseListAdapter extends ArrayAdapter<Expense> {
 
@@ -28,6 +29,10 @@ public class ExpenseListAdapter extends ArrayAdapter<Expense> {
         name.setText(getItem(position).getName());
         TextView price = (TextView) v.findViewById(R.id.expense_price);
         price.setText(String.valueOf(getItem(position).getPrice()));
+        TextView date = (TextView) v.findViewById(R.id.expense_date);
+        date.setText(DateUtils.parseCalendarToString(getItem(position).getDate()));
+
+
 
         return v;
     }
