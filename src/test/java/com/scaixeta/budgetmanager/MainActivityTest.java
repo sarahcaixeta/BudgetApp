@@ -19,7 +19,6 @@ import org.robolectric.tester.android.view.TestMenuItem;
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;

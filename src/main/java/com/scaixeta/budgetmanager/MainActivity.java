@@ -10,8 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.data.Budget;
+import com.scaixeta.budgetmanager.data.Expense;
 import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
+import com.scaixeta.budgetmanager.fragments.ExpenseListFragment;
 import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -21,6 +25,7 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
     @Inject BudgetCalculator budgetCalculator;
 
     private TextView resultText;
+    private ExpenseListFragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,9 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
         setContentView(R.layout.activity_main);
         resultText = (TextView) findViewById(R.id.daily_budget);
+
+        FragmentManager manager = getSupportFragmentManager();
+        listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
 
     }
 
@@ -68,6 +76,8 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
         @Override
         public void onNewExpenseCreated(String name, double price) {
+            Expense expense = new Expense(name, price, Calendar.getInstance());
+            listFragment.addExpense(expense);
         }
     }
 }
