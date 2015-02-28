@@ -12,5 +12,8 @@
     <string name="message_dates_not_valid">The final date must be after the initial date</string>
     <string name="budget_per_day">You have &#36;%1$.2f per day</string>
     <string name="new_expense">New expense</string>
+    <string name="expense_name">Name</string>
+    <string name="expense_price">Price</string>
+    <string name="new_expense_dialog_title">New expense</string>
 
 </resources>
