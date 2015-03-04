@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.scaixeta.budgetmanager.data.Budget;
+import com.scaixeta.budgetmanager.data.Expense;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
@@ -15,6 +16,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 import org.robolectric.tester.android.view.TestMenuItem;
+
+import java.util.ArrayList;
 
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
@@ -52,7 +55,7 @@ public class MainActivityTest {
     @Test
     public void theIncomeViewShouldBeVisibleWhenTheBudgetIsSet() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
-        when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(0d);
+        when(budgetCalculator.calculateDailyBudget(any(Budget.class), new ArrayList<Expense>())).thenReturn(0d);
 
         activity.onFragmentInteraction(budget);
         assertThat(activity.findViewById(R.id.daily_budget_view).getVisibility(), equalTo(View.VISIBLE));
@@ -62,10 +65,10 @@ public class MainActivityTest {
     @Test
     public void shouldCalculateTheBudgetWhenTheSetupIsFinished() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
-        when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(100d);
+        when(budgetCalculator.calculateDailyBudget(any(Budget.class), new ArrayList<Expense>())).thenReturn(100d);
 
         activity.onFragmentInteraction(budget);
-        verify(budgetCalculator).calculateDailyBudget(budget);
+        verify(budgetCalculator).calculateDailyBudget(budget, new ArrayList<Expense>());
     }
 
     @Test

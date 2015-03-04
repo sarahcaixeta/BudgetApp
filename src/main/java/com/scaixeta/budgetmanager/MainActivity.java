@@ -15,6 +15,7 @@ import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
 import com.scaixeta.budgetmanager.fragments.ExpenseListFragment;
 import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.inject.Inject;
@@ -49,7 +50,7 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
     @Override
     public void onFragmentInteraction(Budget budget) {
-        double dailyBudget = budgetCalculator.calculateDailyBudget(budget);
+        double dailyBudget = budgetCalculator.calculateDailyBudget(budget, new ArrayList<Expense>());
         resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
         findViewById(R.id.daily_budget_view).setVisibility(View.VISIBLE);
         budgetSetupFragment.getView().setVisibility(View.GONE);
