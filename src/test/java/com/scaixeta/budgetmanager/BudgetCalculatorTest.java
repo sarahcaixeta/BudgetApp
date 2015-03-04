@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
@@ -33,7 +34,17 @@ public class BudgetCalculatorTest {
         Budget budget = new Budget(3000d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 30));
 
         double dailyBudget = calculator.calculateDailyBudget(budget, new ArrayList<Expense>());
-        assertThat(dailyBudget, equalTo(100.0));
+        assertThat(dailyBudget, equalTo(100d));
+    }
+
+    @Test
+    public void shouldSubtractFromTheTotalBudgetWhenThereIsAnExpense() {
+        Budget budget = new Budget(3000d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 30));
+        Collection<Expense> expenses = new ArrayList<>();
+        expenses.add(new Expense("food", 300d, aCalendarOn(2015, 0, 1)));
+
+        double dailyBudget = calculator.calculateDailyBudget(budget, expenses);
+        assertThat(dailyBudget, equalTo(90d));
     }
 
 }

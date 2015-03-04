@@ -25,6 +25,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyCollection;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -55,7 +56,7 @@ public class MainActivityTest {
     @Test
     public void theIncomeViewShouldBeVisibleWhenTheBudgetIsSet() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
-        when(budgetCalculator.calculateDailyBudget(any(Budget.class), new ArrayList<Expense>())).thenReturn(0d);
+        when(budgetCalculator.calculateDailyBudget(any(Budget.class), anyCollection())).thenReturn(0d);
 
         activity.onFragmentInteraction(budget);
         assertThat(activity.findViewById(R.id.daily_budget_view).getVisibility(), equalTo(View.VISIBLE));
@@ -65,7 +66,7 @@ public class MainActivityTest {
     @Test
     public void shouldCalculateTheBudgetWhenTheSetupIsFinished() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
-        when(budgetCalculator.calculateDailyBudget(any(Budget.class), new ArrayList<Expense>())).thenReturn(100d);
+        when(budgetCalculator.calculateDailyBudget(any(Budget.class), anyCollection())).thenReturn(100d);
 
         activity.onFragmentInteraction(budget);
         verify(budgetCalculator).calculateDailyBudget(budget, new ArrayList<Expense>());
