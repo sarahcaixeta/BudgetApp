@@ -8,16 +8,17 @@ import java.util.Collection;
 
 public class BudgetCalculator {
 
-    public double calculateDailyBudget(Budget budget, Collection<Expense> expenses) {
-        int days = getDaysInterval(budget);
-        double sumOfExpenses = sumOf(expenses);
+    private static final int MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
-        return (budget.getValue() - sumOfExpenses) / (days + 1);
+    public double calculateDailyBudget(Budget budget, Collection<Expense> expenses) {
+        double actualBudget = budget.getValue() - sumOf(expenses);
+        return actualBudget / getDaysInterval(budget);
     }
 
     private int getDaysInterval(Budget budget) {
         long differenceInMillis = budget.getFinalDate().getTimeInMillis() - budget.getInitialDate().getTimeInMillis();
-        return (int) (differenceInMillis / 1000 / 60 / 60 / 24);
+        int days = (int) (differenceInMillis / MILLISECONDS_IN_A_DAY);
+        return days + 1;
     }
 
     private double sumOf(Collection<Expense> expenses) {
