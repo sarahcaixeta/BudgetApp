@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Budget {
 
+
     private Double value;
     private Calendar initialDate;
     private Calendar finalDate;
@@ -30,6 +31,19 @@ public class Budget {
         return finalDate;
     }
 
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void addExpense(Expense expense) {
+        expenses.add(expense);
+    }
+
+    public void updateBudgetValues(Budget budget) {
+        this.value = budget.getValue();
+        this.initialDate = budget.getInitialDate();
+        this.finalDate = budget.getFinalDate();
+    }
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Budget)){
@@ -47,11 +61,4 @@ public class Budget {
                 && initialDate.get(Calendar.DAY_OF_MONTH) == other.get(Calendar.DAY_OF_MONTH);
     }
 
-    public List<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public void addExpense(Expense expense) {
-        expenses.add(expense);
-    }
 }
