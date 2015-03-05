@@ -30,7 +30,6 @@ public class MainActivity extends FragmentActivity
     private TextView resultText;
     private ExpenseListFragment listFragment;
     private BudgetSetupFragment budgetSetupFragment;
-    private Collection<Expense> expenses;
     private Budget budget;
 
     @Override
@@ -40,8 +39,6 @@ public class MainActivity extends FragmentActivity
 
         setContentView(R.layout.activity_main);
         resultText = (TextView) findViewById(R.id.daily_budget);
-
-        expenses = new ArrayList<>();
 
         FragmentManager manager = getSupportFragmentManager();
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
@@ -63,7 +60,7 @@ public class MainActivity extends FragmentActivity
     }
 
     private void calculateAndShowBudget() {
-        double dailyBudget = budgetCalculator.calculateDailyBudget(budget, expenses);
+        double dailyBudget = budgetCalculator.calculateDailyBudget(budget);
         resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
     }
 
@@ -91,7 +88,7 @@ public class MainActivity extends FragmentActivity
     public void onNewExpenseCreated(String name, double price) {
         Expense expense = new Expense(name, price, Calendar.getInstance());
         listFragment.addExpense(expense);
-        expenses.add(expense);
+        budget.addExpense(expense);
         calculateAndShowBudget();
     }
 }

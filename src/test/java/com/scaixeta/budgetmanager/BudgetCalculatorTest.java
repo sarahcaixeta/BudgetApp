@@ -6,9 +6,6 @@ import com.scaixeta.budgetmanager.data.Expense;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -26,24 +23,23 @@ public class BudgetCalculatorTest {
     public void shouldCalculateTheBudgetForOneDayIfInitialAndFinalDateAreTheSame() {
         Budget budget = new Budget(3000d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 1));
 
-        assertThat(calculator.calculateDailyBudget(budget, new ArrayList<Expense>()), equalTo(3000d));
+        assertThat(calculator.calculateDailyBudget(budget), equalTo(3000d));
     }
 
     @Test
     public void shouldDivideIncomeByNumberOfDays(){
         Budget budget = new Budget(3000d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 30));
 
-        double dailyBudget = calculator.calculateDailyBudget(budget, new ArrayList<Expense>());
+        double dailyBudget = calculator.calculateDailyBudget(budget);
         assertThat(dailyBudget, equalTo(100d));
     }
 
     @Test
     public void shouldSubtractFromTheTotalBudgetWhenThereIsAnExpense() {
         Budget budget = new Budget(3000d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 30));
-        Collection<Expense> expenses = new ArrayList<>();
-        expenses.add(new Expense("food", 300d, aCalendarOn(2015, 0, 1)));
+        budget.addExpense(new Expense("food", 300d, aCalendarOn(2015, 0, 1)));
 
-        double dailyBudget = calculator.calculateDailyBudget(budget, expenses);
+        double dailyBudget = calculator.calculateDailyBudget(budget);
         assertThat(dailyBudget, equalTo(90d));
     }
 

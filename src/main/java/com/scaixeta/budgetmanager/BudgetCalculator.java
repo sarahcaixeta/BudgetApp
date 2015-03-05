@@ -10,8 +10,8 @@ public class BudgetCalculator {
 
     private static final int MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
-    public double calculateDailyBudget(Budget budget, Collection<Expense> expenses) {
-        double actualBudget = budget.getValue() - sumOf(expenses);
+    public double calculateDailyBudget(Budget budget) {
+        double actualBudget = budget.getValue() - sumOf(budget.getExpenses());
         return actualBudget / getDaysInterval(budget);
     }
 
@@ -28,4 +28,6 @@ public class BudgetCalculator {
         }
         return sum;
     }
+
+
 }

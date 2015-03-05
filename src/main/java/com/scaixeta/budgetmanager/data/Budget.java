@@ -1,17 +1,21 @@
 package com.scaixeta.budgetmanager.data;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Budget {
 
     private Double value;
     private Calendar initialDate;
     private Calendar finalDate;
+    private List<Expense> expenses;
 
     public Budget(Double value, Calendar initialDate, Calendar finalDate) {
         this.value = value;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
+        this.expenses = new ArrayList<>();
     }
 
     public Double getValue() {
@@ -41,5 +45,13 @@ public class Budget {
         return initialDate.get(Calendar.YEAR) == other.get(Calendar.YEAR)
                 && initialDate.get(Calendar.MONTH) == other.get(Calendar.MONTH)
                 && initialDate.get(Calendar.DAY_OF_MONTH) == other.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public List<Expense> getExpenses() {
+        return expenses;
+    }
+
+    public void addExpense(Expense expense) {
+        expenses.add(expense);
     }
 }
