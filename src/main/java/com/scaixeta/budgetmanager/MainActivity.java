@@ -17,17 +17,21 @@ import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 
 import javax.inject.Inject;
 
 
-public class MainActivity extends FragmentActivity implements BudgetSetupFragment.OnFragmentInteractionListener{
+public class MainActivity extends FragmentActivity
+        implements BudgetSetupFragment.OnFragmentInteractionListener, NewExpenseDialogFragment.NewExpenseListener{
 
     @Inject BudgetCalculator budgetCalculator;
 
     private TextView resultText;
     private ExpenseListFragment listFragment;
     private BudgetSetupFragment budgetSetupFragment;
+    private Collection<Expense> expenses;
+    private Budget budget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,8 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
         setContentView(R.layout.activity_main);
         resultText = (TextView) findViewById(R.id.daily_budget);
+
+        expenses = new ArrayList<>();
 
         FragmentManager manager = getSupportFragmentManager();
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
@@ -50,10 +56,15 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
 
     @Override
     public void onFragmentInteraction(Budget budget) {
-        double dailyBudget = budgetCalculator.calculateDailyBudget(budget, new ArrayList<Expense>());
-        resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
+        this.budget = budget;
+        calculateAndShowBudget();
         findViewById(R.id.daily_budget_view).setVisibility(View.VISIBLE);
         budgetSetupFragment.getView().setVisibility(View.GONE);
+    }
+
+    private void calculateAndShowBudget() {
+        double dailyBudget = budgetCalculator.calculateDailyBudget(budget, expenses);
+        resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
     }
 
     @Override
@@ -67,7 +78,7 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_new_expense){
             NewExpenseDialogFragment dialog = new NewExpenseDialogFragment();
-            dialog.setNewExpenseListener(new OnExpenseCreatedListener());
+            dialog.setNewExpenseListener(this);
             FragmentManager supportFragmentManager = getSupportFragmentManager();
             dialog.show(supportFragmentManager, "newExpenseDialog");
 
@@ -76,12 +87,11 @@ public class MainActivity extends FragmentActivity implements BudgetSetupFragmen
         return super.onOptionsItemSelected(item);
     }
 
-    private class OnExpenseCreatedListener implements NewExpenseDialogFragment.NewExpenseListener {
-
-        @Override
-        public void onNewExpenseCreated(String name, double price) {
-            Expense expense = new Expense(name, price, Calendar.getInstance());
-            listFragment.addExpense(expense);
-        }
+    @Override
+    public void onNewExpenseCreated(String name, double price) {
+        Expense expense = new Expense(name, price, Calendar.getInstance());
+        listFragment.addExpense(expense);
+        expenses.add(expense);
+        calculateAndShowBudget();
     }
 }
