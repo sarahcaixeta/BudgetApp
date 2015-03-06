@@ -10,4 +10,10 @@ public class DateUtils {
         fmt.setCalendar(calendar);
         return fmt.format(calendar.getTime());
     }
+
+    public static String parseToISOString(Calendar calendar) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        fmt.setCalendar(calendar);
+        return fmt.format(calendar.getTime());
+    }
 }
