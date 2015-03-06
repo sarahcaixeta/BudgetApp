@@ -2,10 +2,16 @@ package com.scaixeta.budgetmanager.data;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.scaixeta.budgetmanager.utils.DateUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.scaixeta.budgetmanager.utils.DateUtils.parseISODateToDate;
 
 public class ExpensesDatabase  extends SQLiteOpenHelper {
 
@@ -55,5 +61,28 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
         values.put(EXPENSE_DATE, DateUtils.parseToISOString(expense.getDate()));
 
         db.insert(TABLE_EXPENSES, null, values);
+    }
+
+    public List<Expense> getAll() {
+        List<Expense> expenses = new ArrayList<>();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                expenses.add(assembleExpense(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        return expenses;
+    }
+
+    private Expense assembleExpense(Cursor cursor) {
+        return new Expense(cursor.getString(0),
+                cursor.getDouble(1),
+                parseISODateToDate(cursor.getString(2)));
     }
 }
