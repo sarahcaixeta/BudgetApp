@@ -1,5 +1,7 @@
 package com.scaixeta.budgetmanager.data;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,8 +37,8 @@ public class Budget {
         return expenses;
     }
 
-    public void addExpense(Expense expense) {
-        expenses.add(expense);
+    public void addExpense(Expense... expense) {
+        expenses.addAll(Lists.newArrayList(expense));
     }
 
     public void updateBudgetValues(Budget budget) {

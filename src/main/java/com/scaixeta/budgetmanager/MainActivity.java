@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.Expense;
+import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
 import com.scaixeta.budgetmanager.fragments.ExpenseListFragment;
 import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
@@ -38,8 +39,11 @@ public class MainActivity extends FragmentActivity
         setContentView(R.layout.activity_main);
         resultText = (TextView) findViewById(R.id.daily_budget);
 
+        budget.addExpense(ExpensesDatabase.getInstance(this).getAll().toArray(new Expense[]{}));
+
         FragmentManager manager = getSupportFragmentManager();
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
+        listFragment.addExpense(budget.getExpenses().toArray(new Expense[]{}));
         budgetSetupFragment = (BudgetSetupFragment) manager.findFragmentById(R.id.budget_setup_fragment);
 
     }
@@ -87,6 +91,7 @@ public class MainActivity extends FragmentActivity
         Expense expense = new Expense(name, price, Calendar.getInstance());
         listFragment.addExpense(expense);
         budget.addExpense(expense);
+        ExpensesDatabase.getInstance(this).insert(expense);
         calculateAndShowBudget();
     }
 }

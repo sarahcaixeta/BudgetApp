@@ -27,7 +27,7 @@ public class ExpenseListFragment extends Fragment {
         return view;
     }
 
-    public void addExpense(Expense expense) {
-        adapter.add(expense);
+    public void addExpense(Expense... expense) {
+        adapter.addAll(expense);
     }
 }
