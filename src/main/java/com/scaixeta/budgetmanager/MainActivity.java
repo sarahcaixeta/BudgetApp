@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity
         Expense expense = new Expense(name, price, Calendar.getInstance());
         listFragment.addExpense(expense);
         budget.addExpense(expense);
-        ExpensesDatabase.getInstance(this).insert(expense);
+        ExpensesDatabase.getInstance(this).insertExpense(expense);
         calculateAndShowBudget();
     }
 }

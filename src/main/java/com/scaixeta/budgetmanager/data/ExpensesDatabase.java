@@ -17,10 +17,16 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "expenses-database";
     public static final int VERSION = 1;
+
     public static final String TABLE_EXPENSES = "expenses";
-    public static final String EXPENSE_NAME = "expense_name";
-    public static final String EXPENSE_DATE = "expense_date";
-    public static final String EXPENSE_PRICE = "expense_price";
+    public static final String EXPENSE_NAME = "name";
+    public static final String EXPENSE_DATE = "date";
+    public static final String EXPENSE_PRICE = "price";
+
+    public static final String TABLE_BUDGETS = "budgets";
+    public static final String BUDGET_AMOUNT = "amount";
+    public static final String BUDGET_START = "start";
+    public static final String BUDGET_END = "end";
 
     private static ExpensesDatabase instance;
 
@@ -37,12 +43,19 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_NOTES_TABLE = "CREATE TABLE " + TABLE_EXPENSES + "("
+        String createBudgetTable = "CREATE TABLE " + TABLE_BUDGETS + " ("
+                + BUDGET_AMOUNT + " REAL, "
+                + BUDGET_START + " TEXT, "
+                + BUDGET_END + "TEXT )";
+        db.execSQL(createBudgetTable);
+
+        String createExpensesTable = "CREATE TABLE " + TABLE_EXPENSES + " ("
+
             + EXPENSE_NAME + " TEXT, "
             + EXPENSE_PRICE + " REAL, "
             + EXPENSE_DATE + " TEXT "
             + ")";
-        db.execSQL(CREATE_NOTES_TABLE);
+        db.execSQL(createExpensesTable);
 
     }
 
@@ -52,7 +65,7 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insert(Expense expense) {
+    public void insertExpense(Expense expense) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
