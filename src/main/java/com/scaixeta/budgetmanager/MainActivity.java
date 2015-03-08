@@ -26,10 +26,9 @@ public class MainActivity extends FragmentActivity
 
     @Inject BudgetCalculator budgetCalculator;
 
-    private TextView resultText;
     private ExpenseListFragment listFragment;
     private BudgetSetupFragment budgetSetupFragment;
-    private Budget budget = new Budget(0d, Calendar.getInstance(), Calendar.getInstance());
+    private Budget budget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +36,16 @@ public class MainActivity extends FragmentActivity
         BudgetApp.getInjectable(this).inject(this);
 
         setContentView(R.layout.activity_main);
-        resultText = (TextView) findViewById(R.id.daily_budget);
-
-        budget.addExpense(ExpensesDatabase.getInstance(this).getAll().toArray(new Expense[]{}));
 
         FragmentManager manager = getSupportFragmentManager();
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
-        listFragment.addExpense(budget.getExpenses().toArray(new Expense[]{}));
         budgetSetupFragment = (BudgetSetupFragment) manager.findFragmentById(R.id.budget_setup_fragment);
 
+        budget = ExpensesDatabase.getInstance(this).getBudget();
+        if (budget != null){
+            calculateAndShowBudget();
+            listFragment.addExpense(budget.getExpenses().toArray(new Expense[]{}));
+        }
     }
 
     /* Used by tests :( */
@@ -55,15 +55,17 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void onFragmentInteraction(Budget budget) {
-        this.budget.updateBudgetValues(budget);
+        this.budget = budget;
+        ExpensesDatabase.getInstance(this).insertBudget(this.budget);
         calculateAndShowBudget();
-        findViewById(R.id.daily_budget_view).setVisibility(View.VISIBLE);
-        budgetSetupFragment.getView().setVisibility(View.GONE);
     }
 
     private void calculateAndShowBudget() {
         double dailyBudget = budgetCalculator.calculateDailyBudget(budget);
+        TextView resultText = (TextView) findViewById(R.id.daily_budget);
         resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
+        findViewById(R.id.daily_budget_view).setVisibility(View.VISIBLE);
+        budgetSetupFragment.getView().setVisibility(View.GONE);
     }
 
     @Override

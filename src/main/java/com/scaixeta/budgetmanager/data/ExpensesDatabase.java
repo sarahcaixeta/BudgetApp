@@ -6,12 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.scaixeta.budgetmanager.utils.DateUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.scaixeta.budgetmanager.utils.DateUtils.parseISODateToDate;
+import static com.scaixeta.budgetmanager.utils.DateUtils.parseToISOString;
 
 public class ExpensesDatabase  extends SQLiteOpenHelper {
 
@@ -46,7 +45,7 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
         String createBudgetTable = "CREATE TABLE " + TABLE_BUDGETS + " ("
                 + BUDGET_AMOUNT + " REAL, "
                 + BUDGET_START + " TEXT, "
-                + BUDGET_END + "TEXT )";
+                + BUDGET_END + " TEXT )";
         db.execSQL(createBudgetTable);
 
         String createExpensesTable = "CREATE TABLE " + TABLE_EXPENSES + " ("
@@ -71,12 +70,40 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(EXPENSE_NAME, expense.getName());
         values.put(EXPENSE_PRICE, expense.getPrice());
-        values.put(EXPENSE_DATE, DateUtils.parseToISOString(expense.getDate()));
+        values.put(EXPENSE_DATE, parseToISOString(expense.getDate()));
 
         db.insert(TABLE_EXPENSES, null, values);
     }
 
-    public List<Expense> getAll() {
+    public void insertBudget(Budget budget) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BUDGET_AMOUNT, budget.getValue());
+        values.put(BUDGET_START, parseToISOString(budget.getInitialDate()));
+        values.put(BUDGET_END, parseToISOString(budget.getFinalDate()));
+
+        db.insert(TABLE_BUDGETS, null, values);
+    }
+
+    public Budget getBudget() {
+        String selectQuery = "SELECT  * FROM " + TABLE_BUDGETS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        Budget budget = null;
+        if (cursor.moveToFirst()) {
+            budget = new Budget(cursor.getDouble(0),
+                    parseISODateToDate(cursor.getString(1)),
+                    parseISODateToDate(cursor.getString(2)));
+            budget.addExpense(getAll().toArray(new Expense[]{}));
+        }
+
+        return budget;
+    }
+
+    private List<Expense> getAll() {
         List<Expense> expenses = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_EXPENSES;
