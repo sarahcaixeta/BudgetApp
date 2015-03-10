@@ -16,9 +16,12 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
 import org.robolectric.tester.android.view.TestMenuItem;
 
+import java.util.Calendar;
+
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
@@ -76,4 +79,5 @@ public class MainActivityTest {
         Dialog dialog = ShadowDialog.getLatestDialog();
         assertNotNull(dialog);
     }
+
 }
