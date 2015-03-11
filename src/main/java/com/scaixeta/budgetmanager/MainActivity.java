@@ -70,16 +70,14 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (budget != null){
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_main, menu);
-        }
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_new_expense){
+        if (item.getItemId() == R.id.action_new_expense  && budget != null){
             NewExpenseDialogFragment dialog = new NewExpenseDialogFragment();
             dialog.setNewExpenseListener(this);
             FragmentManager supportFragmentManager = getSupportFragmentManager();

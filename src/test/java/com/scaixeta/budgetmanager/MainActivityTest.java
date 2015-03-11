@@ -74,10 +74,19 @@ public class MainActivityTest {
     @Test
     public void shouldOpenADialogWhenTheNewExpenseMenuIsSelected() {
         MenuItem item = new TestMenuItem(R.id.action_new_expense);
+        activity.onFragmentInteraction(new Budget(10d, Calendar.getInstance(), Calendar.getInstance()));
         activity.onOptionsItemSelected(item);
 
         Dialog dialog = ShadowDialog.getLatestDialog();
         assertNotNull(dialog);
     }
 
+    @Test
+    public void shouldNotOpenADialogWhenThereIsNoBudget() {
+        MenuItem item = new TestMenuItem(R.id.action_new_expense);
+        activity.onOptionsItemSelected(item);
+
+        Dialog dialog = ShadowDialog.getLatestDialog();
+        assertThat(dialog, nullValue());
+    }
 }
