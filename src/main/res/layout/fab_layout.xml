@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<FrameLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" >
+<FrameLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.scaixeta.budgetmanager.fragments.FloatingActionButtonBasicFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <com.scaixeta.budgetmanager.fragments.FloatingActionButton
+    <FrameLayout
             android:id="@+id/fab"
             android:layout_width="@dimen/fab_size"
             android:layout_height="@dimen/fab_size"
@@ -12,7 +14,8 @@
             android:background="@drawable/fab_background"
             android:layout_marginBottom="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+        >
 
         <ImageView
                 android:layout_width="@dimen/fab_icon_size"
@@ -21,7 +24,7 @@
                 android:layout_gravity="center"
                 android:duplicateParentState="true"/>
 
-    </com.scaixeta.budgetmanager.fragments.FloatingActionButton>
+    </FrameLayout>
 
 
 </FrameLayout>
