@@ -28,11 +28,26 @@
         android:layout_height="wrap_content"
     />
 
-    <fragment
-        android:id="@+id/list_fragment"
-        android:name="com.scaixeta.budgetmanager.fragments.ExpenseListFragment"
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        />
+        android:layout_height="fill_parent">
+
+        <fragment
+            android:id="@+id/list_fragment"
+            android:name="com.scaixeta.budgetmanager.fragments.ExpenseListFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+
+        <fragment
+            android:id="@+id/fab_fragment"
+            android:name="com.scaixeta.budgetmanager.fragments.FloatingActionButtonBasicFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            />
+
+    </FrameLayout>
+
 
 </LinearLayout>

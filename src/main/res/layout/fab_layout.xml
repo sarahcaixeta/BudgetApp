@@ -10,7 +10,9 @@
             android:layout_marginTop="16dp"
             android:elevation="@dimen/fab_elevation"
             android:background="@drawable/fab_background"
-            android:layout_gravity="center_horizontal">
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_gravity="right">
 
         <ImageView
                 android:layout_width="@dimen/fab_icon_size"
