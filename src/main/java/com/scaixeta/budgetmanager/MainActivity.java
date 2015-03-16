@@ -3,9 +3,6 @@ package com.scaixeta.budgetmanager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -69,31 +66,15 @@ public class MainActivity extends FragmentActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_new_expense  && budget != null){
-            NewExpenseDialogFragment dialog = new NewExpenseDialogFragment();
-            dialog.setNewExpenseListener(this);
-            FragmentManager supportFragmentManager = getSupportFragmentManager();
-            dialog.show(supportFragmentManager, "newExpenseDialog");
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onNewExpenseCreated(String name, double price) {
         Expense expense = new Expense(name, price, Calendar.getInstance());
         listFragment.addExpense(expense);
         budget.addExpense(expense);
         ExpensesDatabase.getInstance(this).insertExpense(expense);
         calculateAndShowBudget();
+    }
+
+    public boolean hasBudget() {
+        return budget != null;
     }
 }

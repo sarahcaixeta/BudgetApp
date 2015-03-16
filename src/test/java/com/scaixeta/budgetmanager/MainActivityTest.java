@@ -1,7 +1,6 @@
 package com.scaixeta.budgetmanager;
 
 import android.app.Dialog;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.scaixeta.budgetmanager.data.Budget;
@@ -14,7 +13,6 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
-import org.robolectric.tester.android.view.TestMenuItem;
 
 import java.util.Calendar;
 
@@ -73,9 +71,9 @@ public class MainActivityTest {
 
     @Test
     public void shouldOpenADialogWhenTheNewExpenseMenuIsSelected() {
-        MenuItem item = new TestMenuItem(R.id.action_new_expense);
         activity.onFragmentInteraction(new Budget(10d, Calendar.getInstance(), Calendar.getInstance()));
-        activity.onOptionsItemSelected(item);
+        View button = activity.findViewById(R.id.fab);
+        button.callOnClick();
 
         Dialog dialog = ShadowDialog.getLatestDialog();
         assertNotNull(dialog);
@@ -83,8 +81,8 @@ public class MainActivityTest {
 
     @Test
     public void shouldNotOpenADialogWhenThereIsNoBudget() {
-        MenuItem item = new TestMenuItem(R.id.action_new_expense);
-        activity.onOptionsItemSelected(item);
+        View button = activity.findViewById(R.id.fab);
+        button.callOnClick();
 
         Dialog dialog = ShadowDialog.getLatestDialog();
         assertThat(dialog, nullValue());
