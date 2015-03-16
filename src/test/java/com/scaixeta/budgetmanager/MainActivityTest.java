@@ -7,6 +7,7 @@ import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -69,8 +70,9 @@ public class MainActivityTest {
         verify(budgetCalculator).calculateDailyBudget(budget);
     }
 
+    @Ignore
     @Test
-    public void shouldOpenADialogWhenTheNewExpenseMenuIsSelected() {
+    public void shouldOpenADialogWhenTheNewExpenseButtonIsSelected() {
         activity.onFragmentInteraction(new Budget(10d, Calendar.getInstance(), Calendar.getInstance()));
         View button = activity.findViewById(R.id.fab);
         button.callOnClick();

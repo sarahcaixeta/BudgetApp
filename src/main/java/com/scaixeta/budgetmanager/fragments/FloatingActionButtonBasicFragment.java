@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 
 import com.scaixeta.budgetmanager.MainActivity;
 import com.scaixeta.budgetmanager.R;
+import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 
 
 public class FloatingActionButtonBasicFragment extends Fragment {
@@ -40,7 +41,7 @@ public class FloatingActionButtonBasicFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (((MainActivity) getActivity()).hasBudget()) {
+                if (ExpensesDatabase.getInstance(getActivity()).getBudget() != null) {
                     NewExpenseDialogFragment dialog = new NewExpenseDialogFragment();
                     dialog.setNewExpenseListener((MainActivity) getActivity());
                     FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();

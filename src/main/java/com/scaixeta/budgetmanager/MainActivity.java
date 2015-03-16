@@ -74,7 +74,4 @@ public class MainActivity extends FragmentActivity
         calculateAndShowBudget();
     }
 
-    public boolean hasBudget() {
-        return budget != null;
-    }
 }
