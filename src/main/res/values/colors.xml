@@ -3,4 +3,6 @@
 <resources>
     <color name="fab_color">#ff5252</color>
     <color name="fab_color_muted">#ff8080</color>
+    <color name="action_bar_color">#4488ee</color>
+    <color name="status_bar_color">#4477dd</color>
 </resources>

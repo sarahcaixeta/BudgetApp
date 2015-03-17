@@ -3,10 +3,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.Light">
         <!--   color for the app bar in the 'recent apps' view-->
-        <item name="android:colorPrimary">#4488ee</item>
+        <item name="android:colorPrimary">@color/action_bar_color</item>
         <!--   darker variant for the status bar and contextual app bars -->
-        <item name="android:colorPrimaryDark">#4477dd</item>
+        <item name="android:colorPrimaryDark">@color/status_bar_color</item>
         <item name="android:textSize">20dp</item>
+        <item name="android:actionBarTheme">@style/AppTheme.ActionBar</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="android:Theme.Material">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/action_bar_color</item>
     </style>
 
     <style name="BudgetSetup">
