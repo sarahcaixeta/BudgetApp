@@ -40,6 +40,12 @@ public class NewExpenseDialogFragment extends DialogFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
     private String getValueFromInput(int id) {
         EditText name = (EditText) getView().findViewById(id);
         return name.getText().toString();
