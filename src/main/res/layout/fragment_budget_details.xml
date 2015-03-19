@@ -17,8 +17,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Budget:"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
                 android:id="@+id/total_budget"
-                android:text="Budget: $200.00"/>
+                android:text="$200.00"/>
 
             <Button
                 android:layout_width="wrap_content"

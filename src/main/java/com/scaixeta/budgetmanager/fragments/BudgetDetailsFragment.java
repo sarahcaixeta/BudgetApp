@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.BudgetCalculator;
@@ -19,6 +20,7 @@ public class BudgetDetailsFragment extends DialogFragment {
 
     private BudgetCalculator calculator;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,12 +31,14 @@ public class BudgetDetailsFragment extends DialogFragment {
         calculator = new BudgetCalculator();
         Budget budget = ExpensesDatabase.getInstance(getActivity()).getBudget();
 
-        TextView budgetAmount = (TextView) view.findViewById(R.id.total_budget);
-        budgetAmount.setText(getResources().getString(R.string.budget_amount, budget.getValue()));
+        EditText budgetAmount = (EditText) view.findViewById(R.id.total_budget);
+        budgetAmount.setText(getResources().getString(R.string.price, budget.getValue()));
         TextView initialDate = (TextView) view.findViewById(R.id.initial_date);
-        initialDate.setText(getResources().getString(R.string.from_date, parseCalendarToString(budget.getInitialDate())));
+        initialDate.setText(getResources().getString(R.string.from_date,
+                parseCalendarToString(budget.getInitialDate())));
         TextView finalDate = (TextView) view.findViewById(R.id.final_date);
-        finalDate.setText(getResources().getString(R.string.to_date, parseCalendarToString(budget.getFinalDate())));
+        finalDate.setText(getResources().getString(R.string.to_date,
+                parseCalendarToString(budget.getFinalDate())));
         TextView dailyBudget = (TextView) view.findViewById(R.id.daily_budget);
         dailyBudget.setText(getResources().getString(R.string.price, calculator.calculateDailyBudget(budget)));
 
