@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.Expense;
 import com.scaixeta.budgetmanager.data.ExpensesDatabase;
+import com.scaixeta.budgetmanager.fragments.BudgetDetailsFragment;
 import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
 import com.scaixeta.budgetmanager.fragments.ExpenseListFragment;
 import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
@@ -43,6 +44,18 @@ public class MainActivity extends FragmentActivity
             calculateAndShowBudget();
             listFragment.addExpense(budget.getExpenses().toArray(new Expense[]{}));
         }
+        findViewById(R.id.daily_budget_view).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                openDetailsFragment();
+                return false;
+            }
+        });
+    }
+
+    private void openDetailsFragment() {
+        BudgetDetailsFragment dialog = new BudgetDetailsFragment();
+        dialog.show(getSupportFragmentManager(), "budgetDetails");
     }
 
     /* Used by tests :( */
