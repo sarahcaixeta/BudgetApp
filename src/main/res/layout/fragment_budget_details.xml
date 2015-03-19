@@ -1,0 +1,39 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.scaixeta.budgetmanager.fragments.BudgetDetailsFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/total_budget"
+            android:text="Budget: $200.00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/initial_date"
+            android:text="from 15/03/2015"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/final_date"
+            android:text="to 30/03/2015"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@id/daily_budget"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="$15.00 per day"/>
+
+    </LinearLayout>
+
+</FrameLayout>
