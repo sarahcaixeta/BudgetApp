@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="5dp"
     tools:context="com.scaixeta.budgetmanager.fragments.BudgetDetailsFragment">
 
     <LinearLayout
@@ -8,11 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/total_budget"
-            android:text="Budget: $200.00"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/total_budget"
+                android:text="Budget: $200.00"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/edit_budget"
+                android:text="@string/edit"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +45,7 @@
             android:layout_height="wrap_content"
             android:id="@id/daily_budget"
             android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30dp"
             android:text="$15.00 per day"/>
 
     </LinearLayout>

@@ -16,5 +16,10 @@
     <string name="expense_price">Price</string>
     <string name="price">&#36;%1$.2f</string>
     <string name="new_expense_dialog_title">New expense</string>
+    <string name="budget_details">Budget Details</string>
+    <string name="budget_amount">Amount: &#36;%1$.2f</string>
+    <string name="edit">edit</string>
+    <string name="from_date">From %s</string>
+    <string name="to_date">To %s</string>
 
 </resources>
