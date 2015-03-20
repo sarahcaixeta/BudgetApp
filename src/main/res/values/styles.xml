@@ -30,7 +30,7 @@
     </style>
 
     <style name="DailyBudgetView">
-        <item name="android:background">#FF7519</item>
+        <item name="android:background">@color/daily_budget_color</item>
         <item name="android:padding">15dp</item>
         <item name="android:elevation">5dp</item>
         <item name="android:textStyle">bold</item>

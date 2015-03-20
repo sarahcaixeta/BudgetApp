@@ -3,6 +3,7 @@
 <resources>
     <color name="fab_color">#ff5252</color>
     <color name="fab_color_muted">#ff8080</color>
-    <color name="action_bar_color">#4488ee</color>
-    <color name="status_bar_color">#4477dd</color>
+    <color name="action_bar_color">#3c7113</color>
+    <color name="status_bar_color">#214b00</color>
+    <color name="daily_budget_color">#87bc5e</color>
 </resources>
