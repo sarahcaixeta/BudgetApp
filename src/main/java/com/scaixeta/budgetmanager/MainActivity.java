@@ -62,6 +62,10 @@ public class MainActivity extends FragmentActivity
         this.budgetManager = budgetManager;
     }
 
+    public BudgetManager getBudgetManager() {
+        return budgetManager;
+    }
+
     @Override
     public void onFragmentInteraction(Budget budget) {
         budgetManager.saveBudget(this, budget);

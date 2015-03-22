@@ -16,6 +16,7 @@
 
 package com.scaixeta.budgetmanager.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,12 +25,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.scaixeta.budgetmanager.BudgetManager;
 import com.scaixeta.budgetmanager.MainActivity;
 import com.scaixeta.budgetmanager.R;
-import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 
 
 public class FloatingActionButtonBasicFragment extends Fragment {
+
+    private BudgetManager budgetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +44,7 @@ public class FloatingActionButtonBasicFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ExpensesDatabase.getInstance(getActivity()).getBudget() != null) {
+                if (budgetManager.getBudget(getActivity()) != null) {
                     NewExpenseDialogFragment dialog = new NewExpenseDialogFragment();
                     dialog.setNewExpenseListener((MainActivity) getActivity());
                     FragmentManager supportFragmentManager = getActivity().getSupportFragmentManager();
@@ -52,4 +55,11 @@ public class FloatingActionButtonBasicFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof MainActivity){
+            this.budgetManager = ((MainActivity) activity).getBudgetManager();
+        }
+    }
 }
