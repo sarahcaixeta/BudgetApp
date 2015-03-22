@@ -1,6 +1,7 @@
 package com.scaixeta.budgetmanager;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -34,12 +35,15 @@ public class MainActivityTest {
 
     private MainActivity activity;
     private BudgetCalculator budgetCalculator;
+    private BudgetManager budgetManager;
 
     @Before
     public void setUp(){
         activity = Robolectric.buildActivity(MainActivity.class).create().start().get();
         budgetCalculator = Mockito.mock(BudgetCalculator.class);
         activity.setBudgetCalculator(budgetCalculator);
+        budgetManager = Mockito.mock(BudgetManager.class);
+        activity.setBudgetManager(budgetManager);
     }
 
     @Test
@@ -66,6 +70,7 @@ public class MainActivityTest {
     public void shouldCalculateTheBudgetWhenTheSetupIsFinished() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
         when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(100d);
+        when(budgetManager.getBudget(Mockito.any(Context.class))).thenReturn(budget);
 
         activity.onFragmentInteraction(budget);
         verify(budgetCalculator).calculateDailyBudget(budget);

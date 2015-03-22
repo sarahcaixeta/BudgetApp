@@ -11,5 +11,9 @@ public class MainModule {
         return new BudgetCalculator();
     }
 
+    @Provides
+    BudgetManager budgetManager() {
+        return new BudgetManager();
+    }
 
 }
