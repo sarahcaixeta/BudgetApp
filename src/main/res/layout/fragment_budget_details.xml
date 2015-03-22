@@ -19,19 +19,21 @@
                 android:layout_height="wrap_content"
                 android:text="Budget:"/>
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:id="@+id/total_budget"
                 android:text="$200.00"/>
 
-            <Button
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/edit_budget"
-                android:text="@string/edit"/>
+                android:paddingLeft="5dp"
+                android:id="@+id/budget_edittext"
+                android:visibility="gone"
+                android:text="$200.00"/>
+
         </LinearLayout>
 
         <TextView
@@ -45,6 +47,28 @@
             android:layout_height="wrap_content"
             android:id="@+id/final_date"
             android:text="to 30/03/2015"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/edit_budget"
+                android:text="@string/edit"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/edit_ok"
+                android:visibility="gone"
+                android:text="@string/ok"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

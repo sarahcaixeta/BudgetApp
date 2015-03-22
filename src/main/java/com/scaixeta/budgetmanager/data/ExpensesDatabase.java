@@ -86,6 +86,15 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
         db.insert(TABLE_BUDGETS, null, values);
     }
 
+    public void updateBudget(Budget budget, double value) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(BUDGET_AMOUNT, value);
+
+        db.update(TABLE_BUDGETS, values, BUDGET_AMOUNT+"="+budget.getValue(), null);
+    }
+
     public Budget getBudget() {
         String selectQuery = "SELECT  * FROM " + TABLE_BUDGETS;
 
