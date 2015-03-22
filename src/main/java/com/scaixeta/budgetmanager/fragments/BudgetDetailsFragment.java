@@ -1,6 +1,7 @@
 package com.scaixeta.budgetmanager.fragments;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.BudgetManager;
+import com.scaixeta.budgetmanager.MainActivity;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.ExpensesDatabase;
@@ -72,8 +74,12 @@ public class BudgetDetailsFragment extends DialogFragment {
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
-    public void setBudgetManager(BudgetManager budgetManager) {
-        this.budgetManager = budgetManager;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof MainActivity){
+            this.budgetManager = ((MainActivity) activity).getBudgetManager();
+        }
     }
 
     private void toggleEditFieldsVisibility(Button edit, Button ok, EditText editBudget, TextView budgetAmount) {
