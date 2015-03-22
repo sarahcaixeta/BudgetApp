@@ -3,7 +3,7 @@ package com.scaixeta.budgetmanager;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = MainActivity.class)
+@Module(injects = MainActivity.class, library = true)
 public class MainModule {
 
     @Provides
@@ -13,7 +13,7 @@ public class MainModule {
 
     @Provides
     BudgetManager budgetManager() {
-        return new BudgetManager();
+        return new BudgetManager(budgetCalculator());
     }
 
 }

@@ -21,7 +21,6 @@ import javax.inject.Inject;
 public class MainActivity extends FragmentActivity
         implements BudgetSetupFragment.OnFragmentInteractionListener, NewExpenseDialogFragment.NewExpenseListener{
 
-    @Inject BudgetCalculator budgetCalculator;
     @Inject BudgetManager budgetManager;
 
     private ExpenseListFragment listFragment;
@@ -57,11 +56,6 @@ public class MainActivity extends FragmentActivity
         dialog.show(getSupportFragmentManager(), "budgetDetails");
     }
 
-    /* Used by tests :( */
-    public void setBudgetCalculator(BudgetCalculator budgetCalculator) {
-        this.budgetCalculator = budgetCalculator;
-    }
-
     /* Used by tests */
     public void setBudgetManager(BudgetManager budgetManager) {
         this.budgetManager = budgetManager;
@@ -74,7 +68,7 @@ public class MainActivity extends FragmentActivity
     }
 
     private void calculateAndShowBudget() {
-        double dailyBudget = budgetCalculator.calculateDailyBudget(budgetManager.getBudget(this));
+        double dailyBudget = budgetManager.dailyBudget();
         TextView resultText = (TextView) findViewById(R.id.daily_budget);
         resultText.setText(getResources().getString(R.string.budget_per_day, dailyBudget));
         findViewById(R.id.daily_budget_view).setVisibility(View.VISIBLE);

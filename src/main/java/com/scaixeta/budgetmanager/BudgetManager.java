@@ -10,6 +10,11 @@ import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 public class BudgetManager {
 
     private Budget budget;
+    private BudgetCalculator budgetCalculator;
+
+    public BudgetManager(BudgetCalculator calculator) {
+        this.budgetCalculator = calculator;
+    }
 
     public Budget getBudget(Context context) {
         if (budget == null) {
@@ -26,5 +31,9 @@ public class BudgetManager {
     public void saveExpense(Context context, Expense newExpense) {
         ExpensesDatabase.getInstance(context).insertExpense(newExpense);
         this.budget = ExpensesDatabase.getInstance(context).getBudget();
+    }
+
+    public double dailyBudget(){
+        return budgetCalculator.calculateDailyBudget(budget);
     }
 }

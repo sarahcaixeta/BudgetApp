@@ -25,7 +25,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -34,14 +33,11 @@ import static org.mockito.Mockito.when;
 public class MainActivityTest {
 
     private MainActivity activity;
-    private BudgetCalculator budgetCalculator;
     private BudgetManager budgetManager;
 
     @Before
     public void setUp(){
         activity = Robolectric.buildActivity(MainActivity.class).create().start().get();
-        budgetCalculator = Mockito.mock(BudgetCalculator.class);
-        activity.setBudgetCalculator(budgetCalculator);
         budgetManager = Mockito.mock(BudgetManager.class);
         activity.setBudgetManager(budgetManager);
     }
@@ -59,7 +55,7 @@ public class MainActivityTest {
     @Test
     public void theIncomeViewShouldBeVisibleWhenTheBudgetIsSet() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
-        when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(0d);
+        when(budgetManager.dailyBudget()).thenReturn(0d);
 
         activity.onFragmentInteraction(budget);
         assertThat(activity.findViewById(R.id.daily_budget_view).getVisibility(), equalTo(View.VISIBLE));
@@ -69,11 +65,11 @@ public class MainActivityTest {
     @Test
     public void shouldCalculateTheBudgetWhenTheSetupIsFinished() {
         Budget budget = new Budget(0d, aCalendarOn(2015, 0, 1), aCalendarOn(2015, 0, 2));
-        when(budgetCalculator.calculateDailyBudget(any(Budget.class))).thenReturn(100d);
+        when(budgetManager.dailyBudget()).thenReturn(100d);
         when(budgetManager.getBudget(Mockito.any(Context.class))).thenReturn(budget);
 
         activity.onFragmentInteraction(budget);
-        verify(budgetCalculator).calculateDailyBudget(budget);
+        verify(budgetManager).dailyBudget();
         TextView budgetText = (TextView) activity.findViewById(R.id.daily_budget);
         assertThat(budgetText.getText().toString(), equalTo(activity.getResources().getString(R.string.budget_per_day, 100.00)));
     }
