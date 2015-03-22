@@ -28,6 +28,11 @@ public class BudgetManager {
         this.budget = ExpensesDatabase.getInstance(context).getBudget();
     }
 
+    public void updateBudget(Context context, double value){
+        ExpensesDatabase.getInstance(context).updateBudget(budget, value);
+        this.budget = ExpensesDatabase.getInstance(context).getBudget();
+    }
+
     public void saveExpense(Context context, Expense newExpense) {
         ExpensesDatabase.getInstance(context).insertExpense(newExpense);
         this.budget = ExpensesDatabase.getInstance(context).getBudget();

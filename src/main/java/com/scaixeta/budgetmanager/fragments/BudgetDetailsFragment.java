@@ -15,10 +15,8 @@ import com.scaixeta.budgetmanager.BudgetManager;
 import com.scaixeta.budgetmanager.MainActivity;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Budget;
-import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 
 import static com.scaixeta.budgetmanager.utils.DateUtils.parseCalendarToString;
-import static java.lang.Double.valueOf;
 
 public class BudgetDetailsFragment extends DialogFragment {
 
@@ -30,42 +28,56 @@ public class BudgetDetailsFragment extends DialogFragment {
 
         getDialog().setTitle(R.string.budget_details);
 
-        final View view = inflater.inflate(R.layout.fragment_budget_details, container, false);
-        final Budget budget = budgetManager.getBudget(getActivity());
+        View view = inflater.inflate(R.layout.fragment_budget_details, container, false);
+        populateBudgetView(view, budgetManager.getBudget(getActivity()));
 
-        final EditText editBudget = (EditText) view.findViewById(R.id.budget_edittext);
-        editBudget.setText(String.valueOf(budget.getValue()));
-        final TextView budgetAmount = (TextView) view.findViewById(R.id.total_budget);
-        budgetAmount.setText(getResources().getString(R.string.price, budget.getValue()));
-        TextView initialDate = (TextView) view.findViewById(R.id.initial_date);
-        initialDate.setText(getResources().getString(R.string.from_date,
-                parseCalendarToString(budget.getInitialDate())));
-        TextView finalDate = (TextView) view.findViewById(R.id.final_date);
-        finalDate.setText(getResources().getString(R.string.to_date,
-                parseCalendarToString(budget.getFinalDate())));
-        TextView dailyBudget = (TextView) view.findViewById(R.id.daily_budget);
-        dailyBudget.setText(getResources().getString(R.string.price, budgetManager.dailyBudget()));
-
-        final Button ok = (Button) view.findViewById(R.id.edit_ok);
-
-        final Button edit = (Button) view.findViewById(R.id.edit_budget);
+        Button edit = (Button) view.findViewById(R.id.edit_budget);
         edit.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                toggleEditFieldsVisibility(edit, ok, editBudget, budgetAmount);
+                showEditFields();
             }
         });
 
+        Button ok = (Button) view.findViewById(R.id.edit_ok);
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExpensesDatabase.getInstance(getActivity()).updateBudget(budget, valueOf(editBudget.getText().toString()));
-                toggleEditFieldsVisibility(edit, ok, editBudget, budgetAmount);
+                budgetManager.updateBudget(getActivity(), getNewBudgetValue());
+                populateBudgetView(getView(), budgetManager.getBudget(getActivity()));
             }
         });
 
         return view;
+    }
+
+    private Double getNewBudgetValue() {
+        EditText budgetValueEditText = (EditText) getView().findViewById(R.id.budget_edittext);
+        return Double.valueOf(budgetValueEditText.getText().toString());
+    }
+
+    private void populateBudgetView(View view, Budget budget) {
+        EditText budgetEditText = (EditText) view.findViewById(R.id.budget_edittext);
+        budgetEditText.setVisibility(View.GONE);
+        budgetEditText.setText(String.valueOf(budget.getValue()));
+
+        TextView budgetView = (TextView) view.findViewById(R.id.total_budget);
+        budgetView.setVisibility(View.VISIBLE);
+        budgetView.setText(getResources().getString(R.string.price, budget.getValue()));
+
+        TextView budgetInitialDate = (TextView) view.findViewById(R.id.initial_date);
+        budgetInitialDate.setText(getResources().getString(R.string.from_date,
+                parseCalendarToString(budget.getInitialDate())));
+
+        TextView budgetFinalDate = (TextView) view.findViewById(R.id.final_date);
+        budgetFinalDate.setText(getResources().getString(R.string.to_date,
+                parseCalendarToString(budget.getFinalDate())));
+
+        TextView dailyBudget = (TextView) view.findViewById(R.id.daily_budget);
+        dailyBudget.setText(getResources().getString(R.string.price, budgetManager.dailyBudget()));
+
+        view.findViewById(R.id.edit_budget).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.edit_ok).setVisibility(View.GONE);
     }
 
     @Override
@@ -82,14 +94,11 @@ public class BudgetDetailsFragment extends DialogFragment {
         }
     }
 
-    private void toggleEditFieldsVisibility(Button edit, Button ok, EditText editBudget, TextView budgetAmount) {
-        int editVisibility = edit.getVisibility();
-        int okVisibility = ok.getVisibility();
-        ok.setVisibility(editVisibility);
-        editBudget.setVisibility(editVisibility);
-        edit.setVisibility(okVisibility);
-        budgetAmount.setVisibility(okVisibility);
+    private void showEditFields() {
+        getView().findViewById(R.id.edit_ok).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.budget_edittext).setVisibility(View.VISIBLE);
+        getView().findViewById(R.id.edit_budget).setVisibility(View.GONE);
+        getView().findViewById(R.id.total_budget).setVisibility(View.GONE);
     }
-
 
 }
