@@ -2,6 +2,7 @@ package com.scaixeta.budgetmanager;
 
 import android.app.Dialog;
 import android.view.View;
+import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
@@ -68,6 +69,8 @@ public class MainActivityTest {
 
         activity.onFragmentInteraction(budget);
         verify(budgetCalculator).calculateDailyBudget(budget);
+        TextView budgetText = (TextView) activity.findViewById(R.id.daily_budget);
+        assertThat(budgetText.getText().toString(), equalTo(activity.getResources().getString(R.string.budget_per_day, 100.00)));
     }
 
     @Ignore
