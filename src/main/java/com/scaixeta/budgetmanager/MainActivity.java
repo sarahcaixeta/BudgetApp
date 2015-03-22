@@ -53,6 +53,7 @@ public class MainActivity extends FragmentActivity
 
     private void openDetailsFragment() {
         BudgetDetailsFragment dialog = new BudgetDetailsFragment();
+        dialog.setBudgetManager(budgetManager);
         dialog.show(getSupportFragmentManager(), "budgetDetails");
     }
 

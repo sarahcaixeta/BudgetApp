@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.scaixeta.budgetmanager.BudgetCalculator;
+import com.scaixeta.budgetmanager.BudgetManager;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.ExpensesDatabase;
@@ -20,8 +20,7 @@ import static java.lang.Double.valueOf;
 
 public class BudgetDetailsFragment extends DialogFragment {
 
-    private BudgetCalculator calculator;
-
+    private BudgetManager budgetManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,8 +29,7 @@ public class BudgetDetailsFragment extends DialogFragment {
         getDialog().setTitle(R.string.budget_details);
 
         final View view = inflater.inflate(R.layout.fragment_budget_details, container, false);
-        calculator = new BudgetCalculator();
-        final Budget budget = ExpensesDatabase.getInstance(getActivity()).getBudget();
+        final Budget budget = budgetManager.getBudget(getActivity());
 
         final EditText editBudget = (EditText) view.findViewById(R.id.budget_edittext);
         editBudget.setText(String.valueOf(budget.getValue()));
@@ -44,7 +42,7 @@ public class BudgetDetailsFragment extends DialogFragment {
         finalDate.setText(getResources().getString(R.string.to_date,
                 parseCalendarToString(budget.getFinalDate())));
         TextView dailyBudget = (TextView) view.findViewById(R.id.daily_budget);
-        dailyBudget.setText(getResources().getString(R.string.price, calculator.calculateDailyBudget(budget)));
+        dailyBudget.setText(getResources().getString(R.string.price, budgetManager.dailyBudget()));
 
         final Button ok = (Button) view.findViewById(R.id.edit_ok);
 
@@ -68,6 +66,16 @@ public class BudgetDetailsFragment extends DialogFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    }
+
+    public void setBudgetManager(BudgetManager budgetManager) {
+        this.budgetManager = budgetManager;
+    }
+
     private void toggleEditFieldsVisibility(Button edit, Button ok, EditText editBudget, TextView budgetAmount) {
         int editVisibility = edit.getVisibility();
         int okVisibility = ok.getVisibility();
@@ -77,10 +85,5 @@ public class BudgetDetailsFragment extends DialogFragment {
         budgetAmount.setVisibility(okVisibility);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    }
 
 }
