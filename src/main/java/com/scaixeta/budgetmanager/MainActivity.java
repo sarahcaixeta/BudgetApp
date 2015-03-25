@@ -37,11 +37,6 @@ public class MainActivity extends FragmentActivity
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
         budgetSetupFragment = (BudgetSetupFragment) manager.findFragmentById(R.id.budget_setup_fragment);
 
-        Budget budget = budgetManager.getBudget(this);
-        if (budget != null){
-            calculateAndShowBudget();
-            listFragment.addExpense(budget.getExpenses().toArray(new Expense[]{}));
-        }
         findViewById(R.id.daily_budget_view).setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -49,6 +44,28 @@ public class MainActivity extends FragmentActivity
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        onContentChanged();
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        if (listFragment != null){
+            showBudgetAndExpenses();
+        }
+    }
+
+    private void showBudgetAndExpenses() {
+        Budget budget = budgetManager.getBudget(this);
+        if (budget != null){
+            calculateAndShowBudget();
+            listFragment.addExpense(budget.getExpenses().toArray(new Expense[]{}));
+        }
     }
 
     private void openDetailsFragment() {

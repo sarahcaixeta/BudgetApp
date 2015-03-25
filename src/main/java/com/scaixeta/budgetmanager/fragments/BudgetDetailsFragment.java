@@ -2,6 +2,7 @@ package com.scaixeta.budgetmanager.fragments;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -92,6 +93,12 @@ public class BudgetDetailsFragment extends DialogFragment {
         if (activity instanceof MainActivity){
             this.budgetManager = ((MainActivity) activity).getBudgetManager();
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        getActivity().onContentChanged();
     }
 
     private void showEditFields() {

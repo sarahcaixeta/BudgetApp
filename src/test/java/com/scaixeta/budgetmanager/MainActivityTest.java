@@ -78,6 +78,7 @@ public class MainActivityTest {
     @Test
     public void shouldOpenADialogWhenTheNewExpenseButtonIsSelected() {
         activity.onFragmentInteraction(new Budget(10d, Calendar.getInstance(), Calendar.getInstance()));
+        when(budgetManager.getBudget(Mockito.any(Context.class))).thenReturn(new Budget(10d, null, null));
         View button = activity.findViewById(R.id.fab);
         button.callOnClick();
 
