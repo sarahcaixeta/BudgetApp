@@ -6,6 +6,8 @@ import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.Expense;
 import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 
+import java.util.Calendar;
+
 
 public class BudgetManager {
 
@@ -29,7 +31,12 @@ public class BudgetManager {
     }
 
     public void updateBudget(Context context, double value){
-        ExpensesDatabase.getInstance(context).updateBudget(budget, value);
+        ExpensesDatabase.getInstance(context).updateBudget(budget, value, budget.getInitialDate(), budget.getFinalDate());
+        this.budget = ExpensesDatabase.getInstance(context).getBudget();
+    }
+
+    public void updateBudget(Context context, Calendar initialDate, Calendar finalDate){
+        ExpensesDatabase.getInstance(context).updateBudget(budget, budget.getValue(), initialDate, finalDate);
         this.budget = ExpensesDatabase.getInstance(context).getBudget();
     }
 
