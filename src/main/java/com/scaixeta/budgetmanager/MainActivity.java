@@ -37,11 +37,10 @@ public class MainActivity extends FragmentActivity
         listFragment = (ExpenseListFragment) manager.findFragmentById(R.id.list_fragment);
         budgetSetupFragment = (BudgetSetupFragment) manager.findFragmentById(R.id.budget_setup_fragment);
 
-        findViewById(R.id.daily_budget_view).setOnLongClickListener(new View.OnLongClickListener() {
+        findViewById(R.id.daily_budget_view).setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 openDetailsFragment();
-                return false;
             }
         });
     }
