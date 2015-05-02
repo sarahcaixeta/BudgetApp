@@ -1,7 +1,6 @@
 package com.scaixeta.budgetmanager.fragments;
 
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.scaixeta.budgetmanager.BudgetManager;
-import com.scaixeta.budgetmanager.MainActivity;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Budget;
 
@@ -88,14 +86,6 @@ public class BudgetDetailsFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof MainActivity){
-            this.budgetManager = ((MainActivity) activity).getBudgetManager();
-        }
-    }
-
-    @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         getActivity().onContentChanged();
@@ -108,4 +98,7 @@ public class BudgetDetailsFragment extends DialogFragment {
         getView().findViewById(R.id.total_budget).setVisibility(View.GONE);
     }
 
+    public void setBudgetManager(BudgetManager budgetManager) {
+        this.budgetManager = budgetManager;
+    }
 }
