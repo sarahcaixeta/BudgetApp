@@ -6,7 +6,7 @@ import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.Expense;
 import com.scaixeta.budgetmanager.data.ExpensesDatabase;
 
-import java.util.Calendar;
+import org.joda.time.LocalDate;
 
 
 public class BudgetManager {
@@ -35,7 +35,7 @@ public class BudgetManager {
         this.budget = ExpensesDatabase.getInstance(context).getBudget();
     }
 
-    public void updateBudget(Context context, Calendar initialDate, Calendar finalDate){
+    public void updateBudget(Context context, LocalDate initialDate, LocalDate finalDate){
         ExpensesDatabase.getInstance(context).updateBudget(budget, budget.getValue(), initialDate, finalDate);
         this.budget = ExpensesDatabase.getInstance(context).getBudget();
     }

@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Budget;
 
+import org.joda.time.LocalDate;
+
 import java.util.Calendar;
 
 import static com.scaixeta.budgetmanager.utils.DateUtils.parseCalendarToString;
@@ -67,7 +69,8 @@ public class BudgetSetupFragment extends Fragment {
     private void sendBudgetToParentActivity() {
         if (validateDates(initialDate, finalDate)){
             try {
-                interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(), initialDate, finalDate));
+                interactionListener.onFragmentInteraction(new Budget(getEnteredIncome(),
+                        LocalDate.fromCalendarFields(initialDate), LocalDate.fromCalendarFields(finalDate)));
             } catch (NumberFormatException exception) {
                 Toast.makeText(getActivity(), R.string.message_no_income_entered, Toast.LENGTH_LONG).show();
             }

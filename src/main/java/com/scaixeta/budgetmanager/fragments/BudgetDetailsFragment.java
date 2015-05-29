@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.scaixeta.budgetmanager.BudgetManager;
 import com.scaixeta.budgetmanager.R;
 import com.scaixeta.budgetmanager.data.Budget;
-
-import static com.scaixeta.budgetmanager.utils.DateUtils.parseCalendarToString;
+import com.scaixeta.budgetmanager.utils.DateUtils;
 
 public class BudgetDetailsFragment extends DialogFragment {
 
@@ -66,11 +65,11 @@ public class BudgetDetailsFragment extends DialogFragment {
 
         TextView budgetInitialDate = (TextView) view.findViewById(R.id.initial_date);
         budgetInitialDate.setText(getResources().getString(R.string.from_date,
-                parseCalendarToString(budget.getInitialDate())));
+                DateUtils.localDateToString(budget.getInitialDate())));
 
         TextView budgetFinalDate = (TextView) view.findViewById(R.id.final_date);
         budgetFinalDate.setText(getResources().getString(R.string.to_date,
-                parseCalendarToString(budget.getFinalDate())));
+                DateUtils.localDateToString(budget.getFinalDate())));
 
         TextView dailyBudget = (TextView) view.findViewById(R.id.daily_budget);
         dailyBudget.setText(getResources().getString(R.string.price, budgetManager.dailyBudget()));

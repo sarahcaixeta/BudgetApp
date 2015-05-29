@@ -30,7 +30,7 @@ public class ExpenseListAdapter extends ArrayAdapter<Expense> {
         TextView price = (TextView) v.findViewById(R.id.expense_price);
         price.setText(getContext().getString(R.string.price, getItem(position).getPrice()));
         TextView date = (TextView) v.findViewById(R.id.expense_date);
-        date.setText(DateUtils.parseCalendarToString(getItem(position).getDate()));
+        date.setText(DateUtils.localDateToString(getItem(position).getDate()));
 
 
 

@@ -13,7 +13,7 @@ import com.scaixeta.budgetmanager.fragments.BudgetSetupFragment;
 import com.scaixeta.budgetmanager.fragments.ExpenseListFragment;
 import com.scaixeta.budgetmanager.fragments.NewExpenseDialogFragment;
 
-import java.util.Calendar;
+import org.joda.time.LocalDate;
 
 import javax.inject.Inject;
 
@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity
 
     @Override
     public void onNewExpenseCreated(String name, double price) {
-        Expense expense = new Expense(name, price, Calendar.getInstance());
+        Expense expense = new Expense(name, price, LocalDate.now());
         listFragment.addExpense(expense);
         budgetManager.saveExpense(this, expense);
         calculateAndShowBudget();

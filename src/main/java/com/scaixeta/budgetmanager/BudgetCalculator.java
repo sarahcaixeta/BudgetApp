@@ -3,12 +3,12 @@ package com.scaixeta.budgetmanager;
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.data.Expense;
 
+import org.joda.time.Days;
+
 import java.util.Collection;
 
 
 public class BudgetCalculator {
-
-    private static final int MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
 
     public double calculateDailyBudget(Budget budget) {
         double actualBudget = budget.getValue() - sumOf(budget.getExpenses());
@@ -16,8 +16,7 @@ public class BudgetCalculator {
     }
 
     private int getDaysInterval(Budget budget) {
-        long differenceInMillis = budget.getFinalDate().getTimeInMillis() - budget.getInitialDate().getTimeInMillis();
-        int days = (int) (differenceInMillis / MILLISECONDS_IN_A_DAY);
+        int days = Days.daysBetween(budget.getInitialDate(), budget.getFinalDate()).getDays();
         return days + 1;
     }
 

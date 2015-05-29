@@ -2,19 +2,20 @@ package com.scaixeta.budgetmanager.data;
 
 import com.google.common.collect.Lists;
 
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Budget {
 
 
     private Double value;
-    private Calendar initialDate;
-    private Calendar finalDate;
+    private LocalDate initialDate;
+    private LocalDate finalDate;
     private List<Expense> expenses;
 
-    public Budget(Double value, Calendar initialDate, Calendar finalDate) {
+    public Budget(Double value, LocalDate initialDate, LocalDate finalDate) {
         this.value = value;
         this.initialDate = initialDate;
         this.finalDate = finalDate;
@@ -25,11 +26,11 @@ public class Budget {
         return value;
     }
 
-    public Calendar getInitialDate() {
+    public LocalDate getInitialDate() {
         return initialDate;
     }
 
-    public Calendar getFinalDate() {
+    public LocalDate getFinalDate() {
         return finalDate;
     }
 
@@ -52,10 +53,10 @@ public class Budget {
                 && dateFieldsAreEqual(finalDate, other.finalDate);
     }
 
-    private boolean dateFieldsAreEqual(Calendar initialDate, Calendar other) {
-        return initialDate.get(Calendar.YEAR) == other.get(Calendar.YEAR)
-                && initialDate.get(Calendar.MONTH) == other.get(Calendar.MONTH)
-                && initialDate.get(Calendar.DAY_OF_MONTH) == other.get(Calendar.DAY_OF_MONTH);
+    private boolean dateFieldsAreEqual(LocalDate initialDate, LocalDate other) {
+        return initialDate.getYear() == other.getYear()
+                && initialDate.getMonthOfYear() == other.getMonthOfYear()
+                && initialDate.getDayOfMonth() == other.getDayOfMonth();
     }
 
 }

@@ -1,14 +1,14 @@
 package com.scaixeta.budgetmanager.data;
 
-import java.util.Calendar;
+import org.joda.time.LocalDate;
 
 public class Expense {
     
     private String name;
     private Double price;
-    private Calendar date;
+    private LocalDate date;
 
-    public Expense(String name, Double price, Calendar date) {
+    public Expense(String name, Double price, LocalDate date) {
         this.name = name;
         this.price = price;
         this.date = date;
@@ -22,7 +22,7 @@ public class Expense {
         return price;
     }
 
-    public Calendar getDate() {
+    public LocalDate getDate() {
         return date;
     }
 }

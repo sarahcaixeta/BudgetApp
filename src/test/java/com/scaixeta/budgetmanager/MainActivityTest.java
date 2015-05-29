@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.scaixeta.budgetmanager.data.Budget;
 import com.scaixeta.budgetmanager.testrunner.CustomRobolectricTestRunner;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,8 +17,6 @@ import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowDialog;
-
-import java.util.Calendar;
 
 import static com.scaixeta.budgetmanager.utils.TestDateUtils.aCalendarOn;
 import static org.hamcrest.Matchers.equalTo;
@@ -77,7 +76,7 @@ public class MainActivityTest {
     @Ignore
     @Test
     public void shouldOpenADialogWhenTheNewExpenseButtonIsSelected() {
-        activity.onFragmentInteraction(new Budget(10d, Calendar.getInstance(), Calendar.getInstance()));
+        activity.onFragmentInteraction(new Budget(10d, LocalDate.now(), LocalDate.now()));
         when(budgetManager.getBudget(Mockito.any(Context.class))).thenReturn(new Budget(10d, null, null));
         View button = activity.findViewById(R.id.fab);
         button.callOnClick();

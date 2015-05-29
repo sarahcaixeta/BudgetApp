@@ -6,8 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static com.scaixeta.budgetmanager.utils.DateUtils.parseISODateToDate;
@@ -87,7 +88,7 @@ public class ExpensesDatabase  extends SQLiteOpenHelper {
         db.insert(TABLE_BUDGETS, null, values);
     }
 
-    public void updateBudget(Budget budget, double value, Calendar from, Calendar to) {
+    public void updateBudget(Budget budget, double value, LocalDate from, LocalDate to) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
