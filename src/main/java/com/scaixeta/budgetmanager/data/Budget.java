@@ -41,11 +41,6 @@ public class Budget {
         expenses.addAll(Lists.newArrayList(expense));
     }
 
-    public void updateBudgetValues(Budget budget) {
-        this.value = budget.getValue();
-        this.initialDate = budget.getInitialDate();
-        this.finalDate = budget.getFinalDate();
-    }
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Budget)){
