@@ -1,6 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.scaixeta.budgetmanager.MainActivity">
-    <item android:id="@+id/action_new_expense" android:title="@string/new_expense"
-        android:orderInCategory="100" android:showAsAction="never" />
+    <item android:id="@+id/action_new_expense"
+        android:title="@string/new_expense"
+        android:icon="@android:drawable/btn_star"
+        android:showAsAction="always" />
 </menu>
